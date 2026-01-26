@@ -76,3 +76,6 @@ DerivedDataCache/
 
 # Misc
 *.bak
+
+# Rider
+.idea/
