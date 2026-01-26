@@ -34,6 +34,16 @@ void ATssPlayerController::BeginPlay() {
 	}
 }
 
+void ATssPlayerController::OnPossess(APawn* InPawn) {
+	Super::OnPossess(InPawn);
+	
+	tssCaracter = Cast<ATssCharacter>(InPawn); 
+	
+	if (!tssCaracter) {
+		UE_LOG(LogTemp, Error, TEXT("Character Not Properly Cast in TssPlayerController!"));
+	}
+}
+
 void ATssPlayerController::SetupInputComponent() {
 	Super::SetupInputComponent();
 
@@ -58,15 +68,19 @@ void ATssPlayerController::Input_Move(const FInputActionValue& inputActionValue)
 	const FVector forwardDirection = FRotationMatrix(yawRotation).GetUnitAxis(EAxis::X);
 	const FVector rightDirection = FRotationMatrix(yawRotation).GetUnitAxis(EAxis::Y);
 
-	if (APawn* controllerPawn = GetPawn<APawn>()) {
+	if (tssCaracter) {
 
-		controllerPawn->AddMovementInput(forwardDirection, inputAxisVector.Y);
-		controllerPawn->AddMovementInput(rightDirection, inputAxisVector.X); 
+		tssCaracter->AddMovementInput(forwardDirection, inputAxisVector.Y);
+		tssCaracter->AddMovementInput(rightDirection, inputAxisVector.X); 
 	}	
 }
 
 void ATssPlayerController::Input_ShiftPressed() {
+	
+	if (tssCaracter) tssCaracter->SetIsRunning(true); 
 }
 
 void ATssPlayerController::Input_ShiftReleased() {
+	
+	if (tssCaracter) tssCaracter->SetIsRunning(false); 
 }

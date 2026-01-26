@@ -6,6 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "InputMappingContext.h"
 #include "InputAction.h"
+#include "TssCharacter.h"
 #include "TssPlayerController.generated.h"
 
 UCLASS()
@@ -34,6 +35,9 @@ protected:
 
 private:
 
+	UPROPERTY(Transient)
+	TObjectPtr<ATssCharacter> tssCaracter; 
+	
 	bool isShiftKeyDown;
 
 	//-----------------------------------------------------------------------------------------
@@ -43,6 +47,7 @@ private:
 protected:
 
 	virtual void BeginPlay() override;
+	virtual void OnPossess(APawn* InPawn) override;
 	virtual void SetupInputComponent() override;
 
 	//-----------------------------------------------------------------------------------------
