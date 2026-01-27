@@ -8,6 +8,9 @@
 
 ATssCharacterBase::ATssCharacterBase() {
 	PrimaryActorTick.bCanEverTick = true;
+	
+	abilitySystemComponent = CreateDefaultSubobject<UTssAbilitySystemComponent>("AbilitySystemComponent");
+	attributeSet = CreateDefaultSubobject<UTssAttributeSet>("Attribute Set");
 }
 
 void ATssCharacterBase::BeginPlay() {

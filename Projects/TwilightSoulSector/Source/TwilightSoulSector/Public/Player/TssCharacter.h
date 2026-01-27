@@ -16,10 +16,10 @@ class TWILIGHTSOULSECTOR_API ATssCharacter : public ATssCharacterBase {
 
 protected:
 	
-	UPROPERTY(EditDefaultsOnly, Category = "Character | Movement")
+	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | Movement")
 	float walkSpeed; 
 	
-	UPROPERTY(EditDefaultsOnly, Category = "Character | Movement")
+	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | Movement")
 	float runSpeed; 
 	
 	//-----------------------------------------------------------------------------------------
