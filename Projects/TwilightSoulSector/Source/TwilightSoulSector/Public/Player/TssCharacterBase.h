@@ -28,6 +28,8 @@ protected:
 	// Inspector Variables:
 	//-----------------------------------------------------------------------------------------
 	
+protected:
+	
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character Base | References")
 	TObjectPtr<UDataTable> defaultAttribues;
 	
