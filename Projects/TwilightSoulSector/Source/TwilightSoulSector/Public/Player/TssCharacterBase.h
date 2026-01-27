@@ -34,10 +34,10 @@ protected:
 	TObjectPtr<UDataTable> defaultAttribues;
 	
 	//-----------------------------------------------------------------------------------------
-	// Private Fields:
+	// Protected Fields:
 	//-----------------------------------------------------------------------------------------
 	
-private:
+protected:
 	
 	UPROPERTY(Transient)
 	TObjectPtr<UTssAttributeSet> attributeSet;

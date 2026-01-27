@@ -3,6 +3,7 @@
 #include "AbilitySystem/TssAttributeSet.h"
 
 #include "GameplayEffectExtension.h"
+#include "AbilitySystem/TssGameplayTags.h"
 #include "Debug/DebugLog.h"
 
 //-----------------------------------------------------------------------------------------
@@ -20,7 +21,7 @@ void UTssAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, f
 		NewValue = FMath::Clamp(NewValue, 0.0f, GetMaxMana());
 	}
 	
-	if (Attribute == GetMaxStaminaAttribute()) {
+	if (Attribute == GetStaminaAttribute()) {
 		NewValue = FMath::Clamp(NewValue, 0.0f, GetMaxStamina()); 
 	}
 }
@@ -58,6 +59,30 @@ void UTssAttributeSet::PostAttributeChange(const FGameplayAttribute& Attribute, 
 		RestoreStamina();
 		shouldRefillStamina = false; 
 	}
+}
+
+//-----------------------------------------------------------------------------------------
+// Getters / Setters:
+//-----------------------------------------------------------------------------------------
+	
+
+FGameplayAttribute UTssAttributeSet::GetAttributeFromTag(const FGameplayTag& attributeTag) {
+
+	const FTssGameplayTags tags = FTssGameplayTags::Get(); 
+	
+	// really wish we could do a switch for gameplay tags but hey ho. 
+	
+	// derived
+	if (attributeTag.MatchesTagExact(tags.Attributes_Derived_MaxHealth)) return GetMaxHealthAttribute();
+	if (attributeTag.MatchesTagExact(tags.Attributes_Derived_MaxMana)) return GetMaxManaAttribute();
+	if (attributeTag.MatchesTagExact(tags.Attributes_Derived_MaxStamina)) return GetMaxStaminaAttribute();
+	
+	// vital 
+	if (attributeTag.MatchesTagExact(tags.Attributes_Vital_Health)) return GetHealthAttribute();
+	if (attributeTag.MatchesTagExact(tags.Attributes_Vital_Mana)) return GetManaAttribute();
+	if (attributeTag.MatchesTagExact(tags.Attributes_Vital_Stamina)) return GetStaminaAttribute();
+		
+	return FGameplayAttribute(); 
 }
 
 //-----------------------------------------------------------------------------------------
