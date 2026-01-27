@@ -25,6 +25,13 @@ protected:
 	TObjectPtr<UTssAbilitySystemComponent> abilitySystemComponent;  
 	
 	//-----------------------------------------------------------------------------------------
+	// Inspector Variables:
+	//-----------------------------------------------------------------------------------------
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Tss Character Base | References")
+	TObjectPtr<UDataTable> defaultAttribues;
+	
+	//-----------------------------------------------------------------------------------------
 	// Private Fields:
 	//-----------------------------------------------------------------------------------------
 	

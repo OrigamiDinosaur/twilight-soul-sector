@@ -50,4 +50,35 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Vital Attributes")
 	FGameplayAttributeData Stamina;
 	ATTRIBUTE_ACCESSORS(UTssAttributeSet, Stamina);
+	
+	//-----------------------------------------------------------------------------------------
+	// Private Fields:
+	//-----------------------------------------------------------------------------------------
+	
+private: 
+	
+	bool shouldRefillHealth = false;
+	bool shouldRefillMana = false; 
+	bool shouldRefillStamina = false; 
+	
+	//-----------------------------------------------------------------------------------------
+	// Unreal Lifecycle:
+	//-----------------------------------------------------------------------------------------
+	
+public: 
+	
+	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
+	virtual void PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue) override;
+	
+	//-----------------------------------------------------------------------------------------
+	// Public Methods:
+	//-----------------------------------------------------------------------------------------
+	
+public: 
+	
+	void FullRestore(); 
+	void RestoreHealth(); 
+	void RestoreMana(); 
+	void RestoreStamina(); 
 };
