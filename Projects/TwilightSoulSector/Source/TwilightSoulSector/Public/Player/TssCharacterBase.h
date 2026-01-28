@@ -33,6 +33,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character Base | References")
 	TObjectPtr<UDataTable> defaultAttribues;
 	
+	UPROPERTY(EditDefaultsOnly, Category = "Tss Character Base | References")
+	TArray<TSubclassOf<UGameplayAbility>> defaultAbilities; 
+	
 	//-----------------------------------------------------------------------------------------
 	// Protected Fields:
 	//-----------------------------------------------------------------------------------------
@@ -57,5 +60,16 @@ protected:
 public:
 
 	virtual void Tick(float DeltaTime) override;
-
+	
+	//-----------------------------------------------------------------------------------------
+	// Protected Methods:
+	//-----------------------------------------------------------------------------------------
+	
+protected:
+	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	FVector GetSocketByIndex(int socketIndex); 
+	
+	UFUNCTION(BlueprintCallable)
+	FVector GetFacingDirection(); 
 };

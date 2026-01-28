@@ -29,6 +29,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Player Controller | References")
 	TObjectPtr<UInputAction> shiftAction;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Player Controller | References")
+	TObjectPtr<UInputAction> primaryAction; 
+	
 	//-----------------------------------------------------------------------------------------
 	// Private Fields:
 	//-----------------------------------------------------------------------------------------
@@ -36,7 +39,7 @@ protected:
 private:
 
 	UPROPERTY(Transient)
-	TObjectPtr<ATssCharacter> tssCaracter; 
+	TObjectPtr<ATssCharacter> tssCharacter; 
 	
 	bool isShiftKeyDown;
 
@@ -59,4 +62,8 @@ private:
 	void Input_Move(const FInputActionValue& inputActionValue);
 	void Input_ShiftPressed();
 	void Input_ShiftReleased(); 
+	
+	void Input_PrimaryPressed(); 
+	void Input_PrimaryHeld(); 
+	void Input_PrimaryReleased(); 
 };

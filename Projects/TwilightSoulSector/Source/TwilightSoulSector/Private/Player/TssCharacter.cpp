@@ -56,6 +56,22 @@ void ATssCharacter::Tick(float DeltaSeconds) {
 // Public Methods:
 //-----------------------------------------------------------------------------------------
 
-void ATssCharacter::SetIsRunning(const bool isRunning) {
+void ATssCharacter::SetIsRunning(const bool isRunning) const {
 	GetCharacterMovement()->MaxWalkSpeed = isRunning ? runSpeed : walkSpeed; 
+}
+
+void ATssCharacter::PrimaryPressed() const {
+	abilitySystemComponent->AbilityPressed(primaryAbilityTag);
+}
+
+void ATssCharacter::PrimaryHeld() const {
+	abilitySystemComponent->AbilityHeld(primaryAbilityTag); 
+}
+
+void ATssCharacter::PrimaryReleased() const {
+	abilitySystemComponent->AbilityReleased(primaryAbilityTag); 
+}
+
+FVector ATssCharacter::GetSocketByIndex_Implementation(const int socketIndex) {	
+	return GetMesh()->GetSocketLocation(sockets[socketIndex]); 
 }

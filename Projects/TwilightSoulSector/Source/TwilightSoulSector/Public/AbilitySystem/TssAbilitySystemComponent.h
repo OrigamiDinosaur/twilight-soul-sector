@@ -9,4 +9,16 @@
 UCLASS()
 class TWILIGHTSOULSECTOR_API UTssAbilitySystemComponent : public UAbilitySystemComponent {
 	GENERATED_BODY()
+	
+	//-----------------------------------------------------------------------------------------
+	// Public Methods:
+	//-----------------------------------------------------------------------------------------
+	
+public: 
+	
+	void AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& startupAbilites);
+	
+	void AbilityPressed(const FGameplayTag& abilityTag);
+	void AbilityHeld(const FGameplayTag& abilityTag); 
+	void AbilityReleased(const FGameplayTag& abilityTag);
 };

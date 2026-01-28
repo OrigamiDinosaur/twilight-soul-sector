@@ -2,6 +2,7 @@
 
 #include "Player/TssCharacterBase.h"
 
+#include "Components/CapsuleComponent.h"
 #include "Debug/DebugLog.h"
 
 //-----------------------------------------------------------------------------------------
@@ -24,6 +25,7 @@ void ATssCharacterBase::BeginPlay() {
 	else {
 				
 		abilitySystemComponent->InitStats(UTssAttributeSet::StaticClass(), defaultAttribues); 
+		abilitySystemComponent->AddCharacterAbilities(defaultAbilities); 
 		
 		attributeSet->FullRestore(); 
 	}
@@ -31,4 +33,16 @@ void ATssCharacterBase::BeginPlay() {
 
 void ATssCharacterBase::Tick(float DeltaTime) {
 	Super::Tick(DeltaTime);
+}
+
+//-----------------------------------------------------------------------------------------
+// Protected Methods:
+//-----------------------------------------------------------------------------------------
+
+FVector ATssCharacterBase::GetSocketByIndex_Implementation(int socketIndex) {
+	return FVector(); 
+}
+
+FVector ATssCharacterBase::GetFacingDirection() {
+	return GetCapsuleComponent()->GetForwardVector();
 }

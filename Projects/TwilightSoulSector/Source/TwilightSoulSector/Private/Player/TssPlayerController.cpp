@@ -4,6 +4,7 @@
 
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Debug/DebugLog.h"
 
 //-----------------------------------------------------------------------------------------
 // Unreal Lifecycle:
@@ -37,9 +38,9 @@ void ATssPlayerController::BeginPlay() {
 void ATssPlayerController::OnPossess(APawn* InPawn) {
 	Super::OnPossess(InPawn);
 	
-	tssCaracter = Cast<ATssCharacter>(InPawn); 
+	tssCharacter = Cast<ATssCharacter>(InPawn); 
 	
-	if (!tssCaracter) {
+	if (!tssCharacter) {
 		UE_LOG(LogTemp, Error, TEXT("Character Not Properly Cast in TssPlayerController!"));
 	}
 }
@@ -52,6 +53,10 @@ void ATssPlayerController::SetupInputComponent() {
 	input->BindAction(moveAction, ETriggerEvent::Triggered, this, &ATssPlayerController::Input_Move); 
 	input->BindAction(shiftAction, ETriggerEvent::Started, this, &ATssPlayerController::Input_ShiftPressed); 
 	input->BindAction(shiftAction, ETriggerEvent::Completed, this, &ATssPlayerController::Input_ShiftReleased); 
+	
+	input->BindAction(primaryAction, ETriggerEvent::Started, this, &ATssPlayerController::Input_PrimaryPressed);
+	input->BindAction(primaryAction, ETriggerEvent::Triggered, this, &ATssPlayerController::Input_PrimaryHeld);
+	input->BindAction(primaryAction, ETriggerEvent::Completed, this, &ATssPlayerController::Input_PrimaryReleased);
 }
 
 //-----------------------------------------------------------------------------------------
@@ -68,19 +73,29 @@ void ATssPlayerController::Input_Move(const FInputActionValue& inputActionValue)
 	const FVector forwardDirection = FRotationMatrix(yawRotation).GetUnitAxis(EAxis::X);
 	const FVector rightDirection = FRotationMatrix(yawRotation).GetUnitAxis(EAxis::Y);
 
-	if (tssCaracter) {
+	if (tssCharacter) {
 
-		tssCaracter->AddMovementInput(forwardDirection, inputAxisVector.Y);
-		tssCaracter->AddMovementInput(rightDirection, inputAxisVector.X); 
+		tssCharacter->AddMovementInput(forwardDirection, inputAxisVector.Y);
+		tssCharacter->AddMovementInput(rightDirection, inputAxisVector.X); 
 	}	
 }
 
-void ATssPlayerController::Input_ShiftPressed() {
-	
-	if (tssCaracter) tssCaracter->SetIsRunning(true); 
+void ATssPlayerController::Input_ShiftPressed() {	
+	if (tssCharacter) tssCharacter->SetIsRunning(true); 
 }
 
-void ATssPlayerController::Input_ShiftReleased() {
-	
-	if (tssCaracter) tssCaracter->SetIsRunning(false); 
+void ATssPlayerController::Input_ShiftReleased() {	
+	if (tssCharacter) tssCharacter->SetIsRunning(false); 
+}
+
+void ATssPlayerController::Input_PrimaryPressed() {
+	if (tssCharacter) tssCharacter->PrimaryPressed();
+}
+
+void ATssPlayerController::Input_PrimaryHeld() {
+	if (tssCharacter) tssCharacter->PrimaryHeld();
+}
+
+void ATssPlayerController::Input_PrimaryReleased() {
+	if (tssCharacter) tssCharacter->PrimaryReleased(); 
 }

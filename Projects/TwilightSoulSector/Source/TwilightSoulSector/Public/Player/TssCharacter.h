@@ -30,11 +30,17 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | References")
 	TSubclassOf<UTssWidgetController> widgetControllerAsset;	
 	
+	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | References")
+	FGameplayTag primaryAbilityTag;
+	
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | Movement")
 	float walkSpeed; 
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | Movement")
 	float runSpeed; 
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | Sockets")
+	TArray<FName> sockets; 
 	
 	//-----------------------------------------------------------------------------------------
 	// Private Fields:
@@ -71,6 +77,18 @@ public:
 	//-----------------------------------------------------------------------------------------
 
 public: 
+		
+	void SetIsRunning(bool isRunning) const;
 	
-	void SetIsRunning(bool isRunning);
+	void PrimaryPressed() const; 
+	void PrimaryHeld() const; 
+	void PrimaryReleased() const; 
+	
+	//-----------------------------------------------------------------------------------------
+	// Protected Methods:
+	//-----------------------------------------------------------------------------------------	
+	
+protected:
+	
+	virtual FVector GetSocketByIndex_Implementation(int socketIndex) override; 
 };
