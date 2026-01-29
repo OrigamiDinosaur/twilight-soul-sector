@@ -51,6 +51,12 @@ public:
 	FGameplayAttributeData Stamina;
 	ATTRIBUTE_ACCESSORS(UTssAttributeSet, Stamina);
 		
+	// Meta Attributes -----------------------------------------------------------------------
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Meta Attributes")
+	FGameplayAttributeData IncomingDamage; 
+	ATTRIBUTE_ACCESSORS(UTssAttributeSet, IncomingDamage); 
+	
 	//-----------------------------------------------------------------------------------------
 	// Private Fields:
 	//-----------------------------------------------------------------------------------------
@@ -89,4 +95,12 @@ public:
 	void RestoreHealth(); 
 	void RestoreMana(); 
 	void RestoreStamina(); 
+	
+	//-----------------------------------------------------------------------------------------
+	// Private Methods:
+	//-----------------------------------------------------------------------------------------
+	
+private:
+	
+	void HandleIncomingDamage(TObjectPtr<UAbilitySystemComponent> asc);
 };

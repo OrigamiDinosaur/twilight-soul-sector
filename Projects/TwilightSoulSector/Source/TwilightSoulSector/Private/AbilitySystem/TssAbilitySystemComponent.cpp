@@ -58,3 +58,10 @@ void UTssAbilitySystemComponent::AbilityReleased(const FGameplayTag& abilityTag)
 		}
 	}
 }
+
+void UTssAbilitySystemComponent::ApplySimpleGameplayEffect(TSubclassOf<UGameplayEffect> effect, float level) {
+
+	const FGameplayEffectContextHandle contextHandle = MakeEffectContext(); 
+	const FGameplayEffectSpecHandle specHandle = MakeOutgoingSpec(effect, level, contextHandle); 
+	ApplyGameplayEffectSpecToSelf(*specHandle.Data); 	
+}

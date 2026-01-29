@@ -45,6 +45,8 @@ protected:
 	UPROPERTY(Transient)
 	TObjectPtr<UTssAttributeSet> attributeSet;
 	
+	bool isDead; 
+	
 	//-----------------------------------------------------------------------------------------
 	// Unreal Lifecycle:
 	//-----------------------------------------------------------------------------------------
@@ -62,6 +64,22 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	
 	//-----------------------------------------------------------------------------------------
+	// Getters / Setters:
+	//-----------------------------------------------------------------------------------------
+	
+public:
+	
+	TObjectPtr<UTssAbilitySystemComponent> GetAbilitySystemComponent() { return abilitySystemComponent; }
+	
+	//-----------------------------------------------------------------------------------------
+	// Public Methods:
+	//-----------------------------------------------------------------------------------------
+	
+public:
+	
+	void Die(); 
+	
+	//-----------------------------------------------------------------------------------------
 	// Protected Methods:
 	//-----------------------------------------------------------------------------------------
 	
@@ -72,4 +90,7 @@ protected:
 	
 	UFUNCTION(BlueprintCallable)
 	FVector GetFacingDirection(); 
+	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void HandleDeath(); 
 };

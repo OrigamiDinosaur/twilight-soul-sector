@@ -26,5 +26,13 @@ void FTssGameplayTags::InitializeGameplayTags() {
 	instance.Attributes_Vital_Health = tm.AddNativeGameplayTag(FName("Attributes.Vital.Health"), FString("Characters Current Health"));	
 	instance.Attributes_Vital_Mana = tm.AddNativeGameplayTag(FName("Attributes.Vital.Mana"), FString("Characters Current Mana"));	
 	instance.Attributes_Vital_Stamina = tm.AddNativeGameplayTag(FName("Attributes.Vital.Stamina"), FString("Characters Current Stamina"));	
+	
+	// Meta Attributes
+	
+	instance.Attributes_Meta_IncomingDamage = tm.AddNativeGameplayTag(FName("Attributes.Meta.IncomingDamage"));
+	
+	// ---------- Abilities --------------------
+	
+	instance.Abilities_Shared_HitReact = tm.AddNativeGameplayTag(FName("Abilities.Shared.HitReact"));
 } 
 

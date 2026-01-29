@@ -36,6 +36,18 @@ void ATssCharacterBase::Tick(float DeltaTime) {
 }
 
 //-----------------------------------------------------------------------------------------
+// Public Methods:
+//-----------------------------------------------------------------------------------------
+
+void ATssCharacterBase::Die() {
+	if (isDead) return; 
+	
+	isDead = true;
+	
+	HandleDeath();
+}
+
+//-----------------------------------------------------------------------------------------
 // Protected Methods:
 //-----------------------------------------------------------------------------------------
 
@@ -46,3 +58,5 @@ FVector ATssCharacterBase::GetSocketByIndex_Implementation(int socketIndex) {
 FVector ATssCharacterBase::GetFacingDirection() {
 	return GetCapsuleComponent()->GetForwardVector();
 }
+
+void ATssCharacterBase::HandleDeath_Implementation() {}

@@ -100,6 +100,10 @@ FVector ATssCharacter::GetSocketByIndex_Implementation(const int socketIndex) {
 	return GetMesh()->GetSocketLocation(sockets[socketIndex]); 
 }
 
+void ATssCharacter::HandleDeath_Implementation() {
+	Super::HandleDeath_Implementation();
+}
+
 //-----------------------------------------------------------------------------------------
 // Private Methods:
 //-----------------------------------------------------------------------------------------	

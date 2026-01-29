@@ -27,6 +27,14 @@ public:
 	FGameplayTag Attributes_Vital_Mana; 
 	FGameplayTag Attributes_Vital_Stamina;
 	
+	// Meta
+	
+	FGameplayTag Attributes_Meta_IncomingDamage;
+	
+	// Abilities ------------------------------------------------------------------------------
+	
+	FGameplayTag Abilities_Shared_HitReact;
+	
 	//-----------------------------------------------------------------------------------------
 	// Private Fields:
 	//-----------------------------------------------------------------------------------------

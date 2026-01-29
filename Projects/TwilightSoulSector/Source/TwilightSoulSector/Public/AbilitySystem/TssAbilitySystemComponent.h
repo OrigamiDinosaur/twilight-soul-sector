@@ -21,4 +21,6 @@ public:
 	void AbilityPressed(const FGameplayTag& abilityTag);
 	void AbilityHeld(const FGameplayTag& abilityTag); 
 	void AbilityReleased(const FGameplayTag& abilityTag);
+	
+	void ApplySimpleGameplayEffect(TSubclassOf<UGameplayEffect> effect, float level = 1.0f);
 };
