@@ -59,6 +59,17 @@ void ATssPlayerController::SetupInputComponent() {
 	input->BindAction(primaryAction, ETriggerEvent::Completed, this, &ATssPlayerController::Input_PrimaryReleased);
 }
 
+void ATssPlayerController::Tick(const float DeltaSeconds) {
+	Super::Tick(DeltaSeconds);
+	
+	FHitResult cursorHit; 
+	GetHitResultUnderCursor(ECC_Visibility, false, cursorHit);
+	
+	if (cursorHit.bBlockingHit) {
+		if (tssCharacter) tssCharacter->FaceTarget(cursorHit.Location); 		
+	}
+}
+
 //-----------------------------------------------------------------------------------------
 // Event Handlers:
 //-----------------------------------------------------------------------------------------

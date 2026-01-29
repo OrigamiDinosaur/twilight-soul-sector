@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "TssCharacterAnimInstance.h"
 #include "Components/WidgetComponent.h"
 #include "Player/TssCharacterBase.h"
 #include "UI/TssUserWidget.h"
@@ -54,7 +55,12 @@ private:
 	UPROPERTY(Transient)
 	TObjectPtr<UTssWidgetController> widgetController;
 	
+	UPROPERTY(Transient)
+	TObjectPtr<UTssCharacterAnimInstance> animInstance; 
+	
 	FRotator startingWorldRotation; 
+	
+	bool isRunning;
 	
 	//-----------------------------------------------------------------------------------------
 	// Unreal Lifecycle:
@@ -78,11 +84,13 @@ public:
 
 public: 
 		
-	void SetIsRunning(bool isRunning) const;
+	void SetIsRunning(bool inIsRunning);
 	
 	void PrimaryPressed() const; 
 	void PrimaryHeld() const; 
 	void PrimaryReleased() const; 
+	
+	void FaceTarget(const FVector& facingTarget); 
 	
 	//-----------------------------------------------------------------------------------------
 	// Protected Methods:
@@ -91,4 +99,12 @@ public:
 protected:
 	
 	virtual FVector GetSocketByIndex_Implementation(int socketIndex) override; 
+	
+	//-----------------------------------------------------------------------------------------
+	// Private Methods:
+	//-----------------------------------------------------------------------------------------	
+	
+private:
+	
+	void UpdateLocomotionAnimation(); 
 };
