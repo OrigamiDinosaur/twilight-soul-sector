@@ -49,7 +49,7 @@ protected:
 	TObjectPtr<UDataTable> defaultAttribues;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character Base | References")
-	TArray<FTaggedAbility> defaultAbilities; 
+	TArray<TSubclassOf<UGameplayAbility>> defaultAbilities; 
 
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character Base | References")
 	TArray<FTaggedMontage> abilityMontages;

@@ -42,5 +42,14 @@ void FTssGameplayTags::InitializeGameplayTags() {
 	instance.Input_Active = tm.AddNativeGameplayTag(FName("Input.Active"));
 	instance.Input_Active_Primary = tm.AddNativeGameplayTag(FName("Input.Active.Primary"));
 	instance.Input_Active_Secondary = tm.AddNativeGameplayTag(FName("Input.Active.Secondary"));
+	
+	// ---------- Montages --------------------
+	
+	instance.Montage = tm.AddNativeGameplayTag(FName("Montage"));
+	instance.Montage_Arms = tm.AddNativeGameplayTag(FName("Montage.Arms")); 
+	instance.Montage_Arms_Primary = tm.AddNativeGameplayTag(FName("Montage.Arms.Primary")); 
+	instance.Montage_Arms_Secondary = tm.AddNativeGameplayTag(FName("Montage.Arms.Secondary")); 
+	
+	instance.Montage_Area = tm.AddNativeGameplayTag(FName("Montage.Area")); 
 } 
 

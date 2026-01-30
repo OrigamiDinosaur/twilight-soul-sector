@@ -34,7 +34,7 @@ FTaggedMontage UTssGameplayAbility::GetAbilityMontage() {
 	
 	for (FGameplayTag tag : spec->GetDynamicSpecSourceTags()) {
 				
-		if (tag.MatchesTag(FTssGameplayTags::Get().Input_Active)) {
+		if (tag.MatchesTag(FTssGameplayTags::Get().Montage)) {
 			return GetCharacterBase()->GetAbilityMontageByTag(tag); 
 		}
 	}
@@ -61,6 +61,10 @@ bool UTssGameplayAbility::GetLiveCharactersWithinRadius(TArray<AActor*>& outOver
 		}
 	}
 	
+	if (outOverlappingActors.Num() == 0) {
+		return false;
+	}
+	
 	return true; 
 }
 
@@ -74,6 +78,7 @@ AActor* UTssGameplayAbility::ReturnClosestTargetWithinRadius(const TArray<AActor
 		if (actorsWithinRadius.Num() == 1) {
 			return actorsWithinRadius[0];
 		}
+		
 		
 		// otherwise sort our array by distance and then return the first. 
 		TArray<AActor*> sortedActors; 

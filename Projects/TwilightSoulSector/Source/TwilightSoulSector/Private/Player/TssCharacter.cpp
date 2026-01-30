@@ -2,6 +2,7 @@
 
 #include "Player/TssCharacter.h"
 
+#include "AbilitySystem/TssGameplayTags.h"
 #include "Components/CapsuleComponent.h"
 #include "Debug/DebugLog.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -54,6 +55,10 @@ void ATssCharacter::BeginPlay() {
 
 	equippedPrimaryAbilityTag = defaultPrimaryAbilityTag; 
 	equippedSecondaryAbilityTag = defaultSecondaryAbilityTag; 
+	
+	for (const TObjectPtr<UTssAbilityInfo>& info : startingAbilities) {
+		EquipAbility(info); 
+	}
 }
 
 void ATssCharacter::Tick(float DeltaSeconds) {
@@ -122,6 +127,26 @@ void ATssCharacter::HandleDeath_Implementation() {
 //-----------------------------------------------------------------------------------------
 // Private Methods:
 //-----------------------------------------------------------------------------------------	
+
+void ATssCharacter::EquipAbility(const TObjectPtr<UTssAbilityInfo>& abilityInfo) {
+
+	const FTssGameplayTags tags = FTssGameplayTags::Get();
+
+	FGameplayTag montageTag = abilityInfo->montageTag; 
+	
+	// check if our tag is our arms tag. If so reassign to the sub tag arms primary or secondary based on where its equipped. 
+	if (montageTag == tags.Montage_Arms) {
+		
+		if (abilityInfo->abilityTag == equippedPrimaryAbilityTag) {
+			montageTag = tags.Montage_Arms_Primary;
+		}
+		else if (abilityInfo->abilityTag == equippedSecondaryAbilityTag) {
+			montageTag = tags.Montage_Arms_Secondary; 
+		}
+	}
+	
+	abilitySystemComponent->AddCharacterAbility(abilityInfo->ability, montageTag); 
+}
 
 void ATssCharacter::UpdateLocomotionAnimation() {
 	

@@ -6,19 +6,22 @@
 // Public Methods:
 //-----------------------------------------------------------------------------------------
 
-void UTssAbilitySystemComponent::AddCharacterAbilities(const TArray<FTaggedAbility>& startupAbilites) {
+void UTssAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& startupAbilites) {
 	
-	for (const FTaggedAbility& ability : startupAbilites) {
-		AddCharacterAbility(ability); 			
+	for (const TSubclassOf<UGameplayAbility>& ability : startupAbilites) {
+		
+		// all starting abilities given at level 1. 
+		FGameplayAbilitySpec abilitySpec = FGameplayAbilitySpec(ability, 1);
+		GiveAbility(abilitySpec); 
 	}
 }
 
-void UTssAbilitySystemComponent::AddCharacterAbility(const FTaggedAbility& ability) {
-
+void UTssAbilitySystemComponent::AddCharacterAbility(const TSubclassOf<UGameplayAbility> ability, const FGameplayTag montageTag) {
+	
 	// all starting abilities given at level 1. 
-	FGameplayAbilitySpec abilitySpec = FGameplayAbilitySpec(ability.ability, 1);
-	abilitySpec.GetDynamicSpecSourceTags().AddTag(ability.tag); 
-	GiveAbility(abilitySpec); 	
+	FGameplayAbilitySpec abilitySpec = FGameplayAbilitySpec(ability, 1);
+	abilitySpec.GetDynamicSpecSourceTags().AddTag(montageTag); 
+	GiveAbility(abilitySpec); 
 }
 
 void UTssAbilitySystemComponent::AbilityPressed(const FGameplayTag& abilityTag) {

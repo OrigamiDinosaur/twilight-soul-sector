@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "TssCharacterAnimInstance.h"
+#include "AbilitySystem/TssAbilityInfo.h"
 #include "Components/WidgetComponent.h"
 #include "Player/TssCharacterBase.h"
 #include "UI/TssUserWidget.h"
@@ -30,6 +31,9 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | References")
 	TSubclassOf<UTssWidgetController> widgetControllerAsset;	
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | Defaults")
+	TArray<TObjectPtr<UTssAbilityInfo>> startingAbilities;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | Defaults")
 	FGameplayTag defaultPrimaryAbilityTag;
@@ -117,5 +121,6 @@ protected:
 	
 private:
 	
+	void EquipAbility(const TObjectPtr<UTssAbilityInfo>& abilityInfo); 
 	void UpdateLocomotionAnimation(); 
 };
