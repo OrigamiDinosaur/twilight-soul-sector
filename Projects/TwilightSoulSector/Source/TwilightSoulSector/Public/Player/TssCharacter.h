@@ -31,8 +31,11 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | References")
 	TSubclassOf<UTssWidgetController> widgetControllerAsset;	
 	
-	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | References")
+	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | Defaults")
 	FGameplayTag defaultPrimaryAbilityTag;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | Defaults")
+	FGameplayTag defaultSecondaryAbilityTag;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | Movement")
 	float walkSpeed; 
@@ -61,6 +64,7 @@ private:
 	FRotator startingWorldRotation; 
 
 	FGameplayTag equippedPrimaryAbilityTag; 
+	FGameplayTag equippedSecondaryAbilityTag; 
 
 	bool isRunning;
 	
@@ -91,6 +95,10 @@ public:
 	void PrimaryPressed() const; 
 	void PrimaryHeld() const; 
 	void PrimaryReleased() const; 
+	
+	void SecondaryPressed() const; 
+	void SecondaryHeld() const; 
+	void SecondaryReleased() const; 
 	
 	void FaceTarget(const FVector& facingTarget); 
 	

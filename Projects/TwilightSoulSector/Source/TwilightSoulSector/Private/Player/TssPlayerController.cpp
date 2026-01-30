@@ -57,6 +57,10 @@ void ATssPlayerController::SetupInputComponent() {
 	input->BindAction(primaryAction, ETriggerEvent::Started, this, &ATssPlayerController::Input_PrimaryPressed);
 	input->BindAction(primaryAction, ETriggerEvent::Triggered, this, &ATssPlayerController::Input_PrimaryHeld);
 	input->BindAction(primaryAction, ETriggerEvent::Completed, this, &ATssPlayerController::Input_PrimaryReleased);
+	
+	input->BindAction(secondaryAction, ETriggerEvent::Started, this, &ATssPlayerController::Input_SecondaryPressed); 
+	input->BindAction(secondaryAction, ETriggerEvent::Triggered, this, &ATssPlayerController::Input_SecondaryHeld); 
+	input->BindAction(secondaryAction, ETriggerEvent::Completed, this, &ATssPlayerController::Input_SecondaryReleased); 
 }
 
 void ATssPlayerController::Tick(const float DeltaSeconds) {
@@ -109,4 +113,16 @@ void ATssPlayerController::Input_PrimaryHeld() {
 
 void ATssPlayerController::Input_PrimaryReleased() {
 	if (tssCharacter) tssCharacter->PrimaryReleased(); 
+}
+
+void ATssPlayerController::Input_SecondaryPressed() {
+	if (tssCharacter) tssCharacter->SecondaryPressed(); 
+}
+
+void ATssPlayerController::Input_SecondaryHeld() {
+	if (tssCharacter) tssCharacter->SecondaryHeld();
+}
+
+void ATssPlayerController::Input_SecondaryReleased() {
+	if (tssCharacter) tssCharacter->SecondaryReleased(); 
 }

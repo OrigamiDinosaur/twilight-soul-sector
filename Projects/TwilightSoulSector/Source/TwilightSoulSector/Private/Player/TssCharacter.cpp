@@ -53,6 +53,7 @@ void ATssCharacter::BeginPlay() {
 	GetCharacterMovement()->MaxWalkSpeed = walkSpeed;
 
 	equippedPrimaryAbilityTag = defaultPrimaryAbilityTag; 
+	equippedSecondaryAbilityTag = defaultSecondaryAbilityTag; 
 }
 
 void ATssCharacter::Tick(float DeltaSeconds) {
@@ -80,6 +81,18 @@ void ATssCharacter::PrimaryHeld() const {
 
 void ATssCharacter::PrimaryReleased() const {
 	abilitySystemComponent->AbilityReleased(equippedPrimaryAbilityTag); 
+}
+
+void ATssCharacter::SecondaryPressed() const {
+	abilitySystemComponent->AbilityPressed(equippedSecondaryAbilityTag);
+}
+
+void ATssCharacter::SecondaryHeld() const {
+	abilitySystemComponent->AbilityHeld(equippedSecondaryAbilityTag); 
+}
+
+void ATssCharacter::SecondaryReleased() const {
+	abilitySystemComponent->AbilityReleased(equippedSecondaryAbilityTag); 
 }
 
 void ATssCharacter::FaceTarget(const FVector& facingTarget) {

@@ -32,6 +32,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Player Controller | References")
 	TObjectPtr<UInputAction> primaryAction; 
 	
+	UPROPERTY(EditDefaultsOnly, Category = "Player Controller | References")
+	TObjectPtr<UInputAction> secondaryAction;
+	
 	//-----------------------------------------------------------------------------------------
 	// Private Fields:
 	//-----------------------------------------------------------------------------------------
@@ -70,4 +73,8 @@ private:
 	void Input_PrimaryPressed(); 
 	void Input_PrimaryHeld(); 
 	void Input_PrimaryReleased(); 
+	
+	void Input_SecondaryPressed(); 
+	void Input_SecondaryHeld(); 
+	void Input_SecondaryReleased(); 
 };
