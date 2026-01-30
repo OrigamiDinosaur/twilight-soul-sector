@@ -30,9 +30,9 @@ ATssCharacterBase* UTssGameplayAbility::GetCharacterBase() {
 FTaggedMontage UTssGameplayAbility::GetAbilityMontage() {
 
 	FGameplayAbilitySpec* spec = GetCurrentAbilitySpec();
-
+	
 	for (FGameplayTag tag : spec->GetDynamicSpecSourceTags()) {
-		
+				
 		if (tag.MatchesTag(FTssGameplayTags::Get().Input_Active)) {
 			return GetCharacterBase()->GetAbilityMontageByTag(tag); 
 		}
