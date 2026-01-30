@@ -37,6 +37,17 @@ void ATssProjectile::Tick(float DeltaTime) {
 }
 
 //-----------------------------------------------------------------------------------------
+// Public Methods:
+//-----------------------------------------------------------------------------------------
+
+void ATssProjectile::SetHomingTarget(TObjectPtr<USceneComponent> target) {
+	projectileMovementComponent->HomingTargetComponent = target; 
+	
+	projectileMovementComponent->HomingAccelerationMagnitude = homingSpeed; 
+	projectileMovementComponent->bIsHomingProjectile = true;
+}
+
+//-----------------------------------------------------------------------------------------
 // Event Handlers:
 //-----------------------------------------------------------------------------------------
 
@@ -49,8 +60,7 @@ void ATssProjectile::Collision_OnBeginOverlap(UPrimitiveComponent* overlappedCom
 	if (impactSystem) UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, impactSystem, GetActorLocation()); 
 	
 	// todo: apply gameplay effect. 
-	if (TObjectPtr<ATssCharacterBase> characterBase = Cast<ATssCharacterBase>(otherActor)) {
-		
+	if (const TObjectPtr<ATssCharacterBase> characterBase = Cast<ATssCharacterBase>(otherActor)) {		
 		characterBase->GetAbilitySystemComponent()->ApplySimpleGameplayEffect(damageEffectAsset); 
 	}	
 	

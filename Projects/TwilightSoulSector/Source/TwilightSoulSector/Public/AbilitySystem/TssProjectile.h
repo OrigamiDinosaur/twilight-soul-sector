@@ -41,6 +41,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Projectile | References")
 	TObjectPtr<USoundBase> impactSound; 
 	
+	UPROPERTY(EditDefaultsOnly, Category = "Projectile | Homing")
+	float homingSpeed = 800.0f; 
+		
 	UPROPERTY(EditDefaultsOnly, Category = "Projectile | Lifespan")
 	float maxLifeSpan; 
 	
@@ -67,6 +70,14 @@ protected:
 public:
 
 	virtual void Tick(float DeltaTime) override;
+	
+	//-----------------------------------------------------------------------------------------
+	// Public Methods:
+	//-----------------------------------------------------------------------------------------
+	
+public: 
+	
+	void SetHomingTarget(TObjectPtr<USceneComponent> target); 
 	
 	//-----------------------------------------------------------------------------------------
 	// Event Handlers:

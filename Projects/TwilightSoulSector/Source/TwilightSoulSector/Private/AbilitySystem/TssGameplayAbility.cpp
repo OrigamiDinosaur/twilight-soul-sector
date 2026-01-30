@@ -4,6 +4,7 @@
 #include "AbilitySystem/TssAttributeSet.h"
 #include "AbilitySystem/TssGameplayTags.h"
 #include "Debug/DebugLog.h"
+#include "Engine/OverlapResult.h"
 
 //-----------------------------------------------------------------------------------------
 // Protected Methods:
@@ -39,6 +40,59 @@ FTaggedMontage UTssGameplayAbility::GetAbilityMontage() {
 	}
 
 	return FTaggedMontage();
+}
+
+bool UTssGameplayAbility::GetLiveCharactersWithinRadius(TArray<AActor*>& outOverlappingActors, const TArray<AActor*>& actorsToIgnore, const float radius, const FVector& origin) {
+	
+	FCollisionQueryParams sphereParams;
+	sphereParams.AddIgnoredActors(actorsToIgnore);
+	
+	TArray<FOverlapResult> overlaps;
+	GetWorld()->OverlapMultiByObjectType(overlaps, origin, FQuat::Identity, FCollisionObjectQueryParams(FCollisionObjectQueryParams::AllDynamicObjects), FCollisionShape::MakeSphere(radius), sphereParams);
+
+	if (overlaps.Num() == 0) {
+		return false; 
+	}
+	
+	for (FOverlapResult& overlap : overlaps) {
+
+		if (const ATssCharacterBase* character = Cast<ATssCharacterBase>(overlap.GetActor())) {
+			if (!character->GetIsDead()) outOverlappingActors.AddUnique(overlap.GetActor()); 
+		}
+	}
+	
+	return true; 
+}
+
+AActor* UTssGameplayAbility::ReturnClosestTargetWithinRadius(const TArray<AActor*>& actorsToIgnore, const float radius, const FVector& origin) {
+	
+	TArray<AActor*> actorsWithinRadius;
+	
+	if (GetLiveCharactersWithinRadius(actorsWithinRadius, actorsToIgnore, radius, origin)) {
+		
+		// if we only have one actor, return it. 
+		if (actorsWithinRadius.Num() == 1) {
+			return actorsWithinRadius[0];
+		}
+		
+		// otherwise sort our array by distance and then return the first. 
+		TArray<AActor*> sortedActors; 
+		OrderByDistance(origin, actorsWithinRadius, sortedActors); 	
+		return sortedActors[0]; 
+	}
+	
+	return nullptr;
+}
+
+void UTssGameplayAbility::OrderByDistance(const FVector& origin, TArray<AActor*> inArray, TArray<AActor*>& outArray) {
+	
+	inArray.Sort([origin](const AActor& a, const AActor& b) {
+		const float distanceA = FVector::Distance(origin, a.GetActorLocation());
+		const float distanceB = FVector::Distance(origin, b.GetActorLocation());
+		return distanceA < distanceB; 
+	});
+	
+	outArray = inArray;
 }
 
 float UTssGameplayAbility::GetCost(const FGameplayAttribute& costAttribute, const float level) const {

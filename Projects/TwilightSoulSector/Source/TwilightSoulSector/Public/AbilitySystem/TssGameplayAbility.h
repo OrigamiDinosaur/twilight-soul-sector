@@ -32,6 +32,14 @@ protected:
 	UFUNCTION(BlueprintPure)
 	FTaggedMontage GetAbilityMontage(); 
 	
+	UFUNCTION(BlueprintCallable)
+	bool GetLiveCharactersWithinRadius(TArray<AActor*>& outOverlappingActors, const TArray<AActor*>& actorsToIgnore, const float radius, const FVector& origin);
+
+	UFUNCTION(BlueprintPure)
+	AActor* ReturnClosestTargetWithinRadius(const TArray<AActor*>& actorsToIgnore, const float radius, const FVector& origin);
+	
+	static void OrderByDistance(const FVector& origin, TArray<AActor*> inArray, TArray<AActor*>& outArray);
+	
 	float GetCost(const FGameplayAttribute& costAttribute, const float level = 1.0f) const;
 	float GetManaCost(float level = 1.0f) const; 
 	float GetStaminaCost(float level = 1.0f) const; 

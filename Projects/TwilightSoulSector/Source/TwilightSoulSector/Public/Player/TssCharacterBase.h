@@ -89,6 +89,8 @@ public:
 	
 	TObjectPtr<UTssAbilitySystemComponent> GetAbilitySystemComponent() { return abilitySystemComponent; }
 	
+	bool GetIsDead() const { return isDead; }
+	
 	//-----------------------------------------------------------------------------------------
 	// Public Methods:
 	//-----------------------------------------------------------------------------------------
