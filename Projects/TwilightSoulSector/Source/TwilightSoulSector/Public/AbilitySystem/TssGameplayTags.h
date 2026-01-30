@@ -44,7 +44,7 @@ public:
 	FGameplayTag Input_Active_Primary;
 	FGameplayTag Input_Active_Secondary; 
 	
-	// Montages ----------------------------------------------------------------------------------
+	// Montages -------------------------------------------------------------------------------
 	
 	FGameplayTag Montage;
 	
@@ -53,7 +53,11 @@ public:
 	FGameplayTag Montage_Arms_Secondary; 
 	
 	FGameplayTag Montage_Area; 
+	
+	// State ----------------------------------------------------------------------------------
 
+	FGameplayTag State_Player_Equip; 
+	
 	//-----------------------------------------------------------------------------------------
 	// Private Fields:
 	//-----------------------------------------------------------------------------------------

@@ -20,6 +20,8 @@ public:
 	void AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& startupAbilites);
 	void AddCharacterAbility(const TSubclassOf<UGameplayAbility> ability, FGameplayTag montageTag);
 	
+	void RemoveCharacterAbility(const FGameplayTag abilityTag); 
+	
 	void AbilityPressed(const FGameplayTag& abilityTag);
 	void AbilityHeld(const FGameplayTag& abilityTag); 
 	void AbilityReleased(const FGameplayTag& abilityTag);

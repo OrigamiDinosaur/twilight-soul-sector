@@ -24,6 +24,22 @@ void UTssAbilitySystemComponent::AddCharacterAbility(const TSubclassOf<UGameplay
 	GiveAbility(abilitySpec); 
 }
 
+void UTssAbilitySystemComponent::RemoveCharacterAbility(const FGameplayTag abilityTag) {
+	
+	FScopedAbilityListLock activeScopeLock(*this); 
+	
+	FGameplayAbilitySpec* specToRemove = nullptr;
+	
+	for (FGameplayAbilitySpec& abilitySpec : GetActivatableAbilities()) {
+			
+		if (abilitySpec.GetDynamicSpecSourceTags().HasTagExact(abilityTag)) specToRemove = &abilitySpec; 
+	}
+	
+	if (specToRemove) {
+		ClearAbility(specToRemove->Handle);
+	}
+}
+
 void UTssAbilitySystemComponent::AbilityPressed(const FGameplayTag& abilityTag) {
 	if (!abilityTag.IsValid()) return; 
 	

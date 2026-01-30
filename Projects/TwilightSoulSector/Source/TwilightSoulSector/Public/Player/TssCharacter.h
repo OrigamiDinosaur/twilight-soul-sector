@@ -65,6 +65,9 @@ private:
 	UPROPERTY(Transient)
 	TObjectPtr<UTssCharacterAnimInstance> animInstance; 
 	
+	UPROPERTY(Transient)
+	TObjectPtr<UTssAbilityInfo> equippableAbility; 
+	
 	FRotator startingWorldRotation; 
 
 	FGameplayTag equippedPrimaryAbilityTag; 
@@ -105,6 +108,12 @@ public:
 	void SecondaryReleased() const; 
 	
 	void FaceTarget(const FVector& facingTarget); 
+	
+	void AllowAbilityEquip(TObjectPtr<UTssAbilityInfo> ability);
+	void DisableAbilityEquip(); 
+	
+	void AttemptEquipPrimary();
+	void AttemptEquipSecondary(); 
 	
 	//-----------------------------------------------------------------------------------------
 	// Protected Methods:

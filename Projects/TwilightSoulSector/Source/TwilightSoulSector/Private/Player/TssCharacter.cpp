@@ -112,6 +112,47 @@ void ATssCharacter::FaceTarget(const FVector& facingTarget) {
 	UpdateLocomotionAnimation(); 
 }
 
+void ATssCharacter::AllowAbilityEquip(const TObjectPtr<UTssAbilityInfo> ability) {
+	equippableAbility = ability;	
+	abilitySystemComponent->AddLooseGameplayTag(FTssGameplayTags::Get().State_Player_Equip); 
+}
+
+void ATssCharacter::DisableAbilityEquip() {
+	
+	equippableAbility = nullptr; 	
+	abilitySystemComponent->RemoveLooseGameplayTag(FTssGameplayTags::Get().State_Player_Equip); 
+}
+
+void ATssCharacter::AttemptEquipPrimary() {
+	if (equippableAbility == nullptr || equippableAbility->abilityTag == equippedPrimaryAbilityTag || !abilitySystemComponent->HasMatchingGameplayTag(FTssGameplayTags::Get().State_Player_Equip)) return; 
+	
+	abilitySystemComponent->RemoveCharacterAbility(equippedPrimaryAbilityTag); 
+	
+	equippedPrimaryAbilityTag = equippableAbility->abilityTag; 	
+	
+	if (equippedPrimaryAbilityTag == equippedSecondaryAbilityTag) {
+		abilitySystemComponent->RemoveCharacterAbility(equippedSecondaryAbilityTag); 
+		equippedSecondaryAbilityTag = FGameplayTag(); 
+	}
+	
+	EquipAbility(equippableAbility); 
+}
+
+void ATssCharacter::AttemptEquipSecondary() {
+	if (equippableAbility == nullptr || equippableAbility->abilityTag == equippedSecondaryAbilityTag || !abilitySystemComponent->HasMatchingGameplayTag(FTssGameplayTags::Get().State_Player_Equip)) return; 
+	
+	abilitySystemComponent->RemoveCharacterAbility(equippedSecondaryAbilityTag); 
+	
+	equippedSecondaryAbilityTag = equippableAbility->abilityTag; 	
+	
+	if (equippedPrimaryAbilityTag == equippedSecondaryAbilityTag) {
+		abilitySystemComponent->RemoveCharacterAbility(equippedPrimaryAbilityTag); 
+		equippedPrimaryAbilityTag = FGameplayTag(); 
+	}
+	
+	EquipAbility(equippableAbility); 
+}
+
 //-----------------------------------------------------------------------------------------
 // Protected Methods:
 //-----------------------------------------------------------------------------------------	
