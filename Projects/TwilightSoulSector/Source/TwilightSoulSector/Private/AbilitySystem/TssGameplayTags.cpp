@@ -34,5 +34,13 @@ void FTssGameplayTags::InitializeGameplayTags() {
 	// ---------- Abilities --------------------
 	
 	instance.Abilities_Shared_HitReact = tm.AddNativeGameplayTag(FName("Abilities.Shared.HitReact"));
+
+	// ---------- Input --------------------
+
+	instance.Input_Passive = tm.AddNativeGameplayTag(FName("Input.Passive"));
+
+	instance.Input_Active = tm.AddNativeGameplayTag(FName("Input.Active"));
+	instance.Input_Active_Primary = tm.AddNativeGameplayTag(FName("Input.Active.Primary"));
+	instance.Input_Active_Secondary = tm.AddNativeGameplayTag(FName("Input.Active.Secondary"));
 } 
 

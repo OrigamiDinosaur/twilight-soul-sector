@@ -32,7 +32,7 @@ protected:
 	TSubclassOf<UTssWidgetController> widgetControllerAsset;	
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | References")
-	FGameplayTag primaryAbilityTag;
+	FGameplayTag defaultPrimaryAbilityTag;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | Movement")
 	float walkSpeed; 
@@ -59,7 +59,9 @@ private:
 	TObjectPtr<UTssCharacterAnimInstance> animInstance; 
 	
 	FRotator startingWorldRotation; 
-	
+
+	FGameplayTag equippedPrimaryAbilityTag; 
+
 	bool isRunning;
 	
 	//-----------------------------------------------------------------------------------------

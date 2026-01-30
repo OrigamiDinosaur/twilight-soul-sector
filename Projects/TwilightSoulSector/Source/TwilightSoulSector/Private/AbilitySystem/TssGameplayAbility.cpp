@@ -1,8 +1,45 @@
 // Origami Dinosaur Creations 2026 (C)
 
 #include "AbilitySystem/TssGameplayAbility.h"
-
 #include "AbilitySystem/TssAttributeSet.h"
+#include "AbilitySystem/TssGameplayTags.h"
+#include "Debug/DebugLog.h"
+
+//-----------------------------------------------------------------------------------------
+// Protected Methods:
+//-----------------------------------------------------------------------------------------
+
+// for this project we're assuming Tss Gameplay Abilities are only triggered by TssCharacters
+// this'll be fine for a project this size, but if the project grows in scope will have to be refactored
+// with a interface
+ATssCharacterBase* UTssGameplayAbility::GetCharacterBase() {
+
+	if (!characterBase) {
+
+		characterBase = Cast<ATssCharacterBase>(GetAvatarActorFromActorInfo());
+
+		if (!characterBase) {
+			LOGERROR("CharacterBase not found in TssGameplayAbility. Have you given this ability to a non-character?")
+			return nullptr; 
+		}
+	}	
+
+	return characterBase; 
+}
+
+FTaggedMontage UTssGameplayAbility::GetAbilityMontage() {
+
+	FGameplayAbilitySpec* spec = GetCurrentAbilitySpec();
+
+	for (FGameplayTag tag : spec->GetDynamicSpecSourceTags()) {
+		
+		if (tag.MatchesTag(FTssGameplayTags::Get().Input_Active)) {
+			return GetCharacterBase()->GetAbilityMontageByTag(tag); 
+		}
+	}
+
+	return FTaggedMontage();
+}
 
 float UTssGameplayAbility::GetCost(const FGameplayAttribute& costAttribute, const float level) const {
 	

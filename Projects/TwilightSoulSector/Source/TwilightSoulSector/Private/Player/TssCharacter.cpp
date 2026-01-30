@@ -50,7 +50,9 @@ void ATssCharacter::BeginPlay() {
 	}
 	
 	startingWorldRotation = vitalAttributesWidgetComponent->GetComponentRotation();	
-	GetCharacterMovement()->MaxWalkSpeed = walkSpeed; 
+	GetCharacterMovement()->MaxWalkSpeed = walkSpeed;
+
+	equippedPrimaryAbilityTag = defaultPrimaryAbilityTag; 
 }
 
 void ATssCharacter::Tick(float DeltaSeconds) {
@@ -69,15 +71,15 @@ void ATssCharacter::SetIsRunning(const bool inIsRunning) {
 }
 
 void ATssCharacter::PrimaryPressed() const {
-	abilitySystemComponent->AbilityPressed(primaryAbilityTag);
+	abilitySystemComponent->AbilityPressed(equippedPrimaryAbilityTag);
 }
 
 void ATssCharacter::PrimaryHeld() const {
-	abilitySystemComponent->AbilityHeld(primaryAbilityTag); 
+	abilitySystemComponent->AbilityHeld(equippedPrimaryAbilityTag); 
 }
 
 void ATssCharacter::PrimaryReleased() const {
-	abilitySystemComponent->AbilityReleased(primaryAbilityTag); 
+	abilitySystemComponent->AbilityReleased(equippedPrimaryAbilityTag); 
 }
 
 void ATssCharacter::FaceTarget(const FVector& facingTarget) {

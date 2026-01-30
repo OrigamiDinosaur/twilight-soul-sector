@@ -6,14 +6,19 @@
 // Public Methods:
 //-----------------------------------------------------------------------------------------
 
-void UTssAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& startupAbilites) {
+void UTssAbilitySystemComponent::AddCharacterAbilities(const TArray<FTaggedAbility>& startupAbilites) {
 	
-	for (const TSubclassOf<UGameplayAbility> ability : startupAbilites) {
-		
-		// all starting abilities given at level 1. 
-		FGameplayAbilitySpec abilitySpec = FGameplayAbilitySpec(ability, 1); 
-		GiveAbility(abilitySpec); 		
+	for (const FTaggedAbility& ability : startupAbilites) {
+		AddCharacterAbility(ability); 			
 	}
+}
+
+void UTssAbilitySystemComponent::AddCharacterAbility(const FTaggedAbility& ability) {
+
+	// all starting abilities given at level 1. 
+	FGameplayAbilitySpec abilitySpec = FGameplayAbilitySpec(ability.ability, 1);
+	abilitySpec.GetDynamicSpecSourceTags().AddTag(ability.tag); 
+	GiveAbility(abilitySpec); 	
 }
 
 void UTssAbilitySystemComponent::AbilityPressed(const FGameplayTag& abilityTag) {
@@ -24,9 +29,9 @@ void UTssAbilitySystemComponent::AbilityPressed(const FGameplayTag& abilityTag) 
 	for (FGameplayAbilitySpec& abilitySpec : GetActivatableAbilities()) {
 		
 		TArray<FGameplayTag> gameplayTags;
-		abilitySpec.Ability.Get()->AbilityTags.GetGameplayTagArray(gameplayTags); 
+		abilitySpec.Ability.Get()->GetAssetTags().GetGameplayTagArray(gameplayTags); 
 				
-		if (abilitySpec.Ability.Get()->AbilityTags.HasTagExact(abilityTag)) {
+		if (abilitySpec.Ability.Get()->GetAssetTags().HasTagExact(abilityTag)) {
 			AbilitySpecInputPressed(abilitySpec); 
 		}
 	}
@@ -39,7 +44,7 @@ void UTssAbilitySystemComponent::AbilityHeld(const FGameplayTag& abilityTag) {
 	
 	for (FGameplayAbilitySpec& abilitySpec : GetActivatableAbilities()) {
 		
-		if (abilitySpec.Ability.Get()->AbilityTags.HasTagExact(abilityTag)) {
+		if (abilitySpec.Ability.Get()->GetAssetTags().HasTagExact(abilityTag)) {
 			AbilitySpecInputPressed(abilitySpec);
 			if (!abilitySpec.IsActive()) TryActivateAbility(abilitySpec.Handle); 
 		}
@@ -53,7 +58,7 @@ void UTssAbilitySystemComponent::AbilityReleased(const FGameplayTag& abilityTag)
 	
 	for (FGameplayAbilitySpec& abilitySpec : GetActivatableAbilities()) {
 		
-		if (abilitySpec.Ability.Get()->AbilityTags.HasTagExact(abilityTag) && abilitySpec.IsActive()) {
+		if (abilitySpec.Ability.Get()->GetAssetTags().HasTagExact(abilityTag) && abilitySpec.IsActive()) {
 			AbilitySpecInputReleased(abilitySpec);	
 		}
 	}

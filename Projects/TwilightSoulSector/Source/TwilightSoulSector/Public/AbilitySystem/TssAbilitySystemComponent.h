@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemComponent.h"
+#include "Structs.h"
 #include "TssAbilitySystemComponent.generated.h"
 
 UCLASS()
@@ -16,7 +17,8 @@ class TWILIGHTSOULSECTOR_API UTssAbilitySystemComponent : public UAbilitySystemC
 	
 public: 
 	
-	void AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& startupAbilites);
+	void AddCharacterAbilities(const TArray<FTaggedAbility>& startupAbilites);
+	void AddCharacterAbility(const FTaggedAbility& ability); 
 	
 	void AbilityPressed(const FGameplayTag& abilityTag);
 	void AbilityHeld(const FGameplayTag& abilityTag); 

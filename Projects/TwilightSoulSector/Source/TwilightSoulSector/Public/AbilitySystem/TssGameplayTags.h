@@ -1,5 +1,6 @@
 // Origami Dinosaur Creations 2026 (C)
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "CoreMinimal.h"
@@ -34,7 +35,15 @@ public:
 	// Abilities ------------------------------------------------------------------------------
 	
 	FGameplayTag Abilities_Shared_HitReact;
-	
+
+	// Input ----------------------------------------------------------------------------------
+
+	FGameplayTag Input_Passive;
+
+	FGameplayTag Input_Active;
+	FGameplayTag Input_Active_Primary;
+	FGameplayTag Input_Active_Secondary; 
+
 	//-----------------------------------------------------------------------------------------
 	// Private Fields:
 	//-----------------------------------------------------------------------------------------

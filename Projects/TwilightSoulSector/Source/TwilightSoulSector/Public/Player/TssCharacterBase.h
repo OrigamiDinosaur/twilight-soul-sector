@@ -4,10 +4,25 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemComponent.h"
+#include "Structs.h"
 #include "AbilitySystem/TssAbilitySystemComponent.h"
 #include "AbilitySystem/TssAttributeSet.h"
 #include "GameFramework/Character.h"
 #include "TssCharacterBase.generated.h"
+
+USTRUCT(BlueprintType)
+struct FTaggedMontage {
+	GENERATED_BODY()
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UAnimMontage* montage = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FGameplayTag montageTag;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	int32 socketIndex; 
+};
 
 UCLASS()
 class TWILIGHTSOULSECTOR_API ATssCharacterBase : public ACharacter {
@@ -34,8 +49,11 @@ protected:
 	TObjectPtr<UDataTable> defaultAttribues;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character Base | References")
-	TArray<TSubclassOf<UGameplayAbility>> defaultAbilities; 
-	
+	TArray<FTaggedAbility> defaultAbilities; 
+
+	UPROPERTY(EditDefaultsOnly, Category = "Tss Character Base | References")
+	TArray<FTaggedMontage> abilityMontages;
+
 	//-----------------------------------------------------------------------------------------
 	// Protected Fields:
 	//-----------------------------------------------------------------------------------------
@@ -76,6 +94,9 @@ public:
 	//-----------------------------------------------------------------------------------------
 	
 public:
+
+	UFUNCTION(BlueprintPure)
+	FTaggedMontage GetAbilityMontageByTag(const FGameplayTag& montageTag); 
 	
 	void Die(); 
 	
@@ -86,9 +107,9 @@ public:
 protected:
 	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
-	FVector GetSocketByIndex(int socketIndex); 
+	FVector GetSocketByIndex(int socketIndex);
 	
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintPure)
 	FVector GetFacingDirection(); 
 	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)

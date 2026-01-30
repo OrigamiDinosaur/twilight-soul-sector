@@ -25,7 +25,7 @@ void ATssCharacterBase::BeginPlay() {
 	else {
 				
 		abilitySystemComponent->InitStats(UTssAttributeSet::StaticClass(), defaultAttribues); 
-		abilitySystemComponent->AddCharacterAbilities(defaultAbilities); 
+		abilitySystemComponent->AddCharacterAbilities(defaultAbilities);
 		
 		attributeSet->FullRestore(); 
 	}
@@ -53,6 +53,15 @@ void ATssCharacterBase::Die() {
 
 FVector ATssCharacterBase::GetSocketByIndex_Implementation(int socketIndex) {
 	return FVector(); 
+}
+
+FTaggedMontage ATssCharacterBase::GetAbilityMontageByTag(const FGameplayTag& montageTag) {
+
+	for (FTaggedMontage montage : abilityMontages) {
+		if (montage.montageTag == montageTag) return montage;
+	}
+
+	return FTaggedMontage(); 
 }
 
 FVector ATssCharacterBase::GetFacingDirection() {
