@@ -15,13 +15,13 @@ class TWILIGHTSOULSECTOR_API ATssCharacter : public ATssCharacterBase {
 	GENERATED_BODY()
 
 	//-----------------------------------------------------------------------------------------
-	// Components:
+	// Events:
 	//-----------------------------------------------------------------------------------------
 	
-protected:
+public: 
 	
-	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | Components")
-	TObjectPtr<UWidgetComponent> vitalAttributesWidgetComponent; 
+	FAbilityInfoDelegate PrimaryAbilityAssigned;
+	FAbilityInfoDelegate SecondaryAbilityAssigned;
 	
 	//-----------------------------------------------------------------------------------------
 	// Inspector Variables:
@@ -55,13 +55,7 @@ protected:
 	//-----------------------------------------------------------------------------------------
 	
 private:
-	
-	UPROPERTY(Transient)
-	TObjectPtr<UTssUserWidget> vitalAttributesWidget;
-	
-	UPROPERTY(Transient)
-	TObjectPtr<UTssWidgetController> widgetController;
-	
+		
 	UPROPERTY(Transient)
 	TObjectPtr<UTssCharacterAnimInstance> animInstance; 
 	
@@ -78,10 +72,6 @@ private:
 	//-----------------------------------------------------------------------------------------
 	// Unreal Lifecycle:
 	//-----------------------------------------------------------------------------------------
-
-public: 
-		
-	ATssCharacter();
 	
 protected:
 	

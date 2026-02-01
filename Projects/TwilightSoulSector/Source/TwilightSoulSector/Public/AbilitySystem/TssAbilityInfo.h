@@ -7,7 +7,7 @@
 #include "Engine/DataAsset.h"
 #include "TssAbilityInfo.generated.h"
 
-UCLASS()
+UCLASS(BlueprintType, Blueprintable)
 class TWILIGHTSOULSECTOR_API UTssAbilityInfo : public UDataAsset {
 	GENERATED_BODY()
 	
@@ -25,4 +25,7 @@ public:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FGameplayTag montageTag;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TObjectPtr<const UTexture2D> icon = nullptr; 
 };

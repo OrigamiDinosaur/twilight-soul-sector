@@ -11,38 +11,10 @@
 // Unreal Lifecycle:
 //-----------------------------------------------------------------------------------------
 
-ATssCharacter::ATssCharacter() {
-	
-	vitalAttributesWidgetComponent = CreateDefaultSubobject<UWidgetComponent>("Vital Attributes Widget");
-	vitalAttributesWidgetComponent->SetupAttachment(RootComponent);
-}
 
 void ATssCharacter::BeginPlay() {
 	Super::BeginPlay();
 	
-	// get our widget from our widget component.
-	vitalAttributesWidget = Cast<UTssUserWidget>(vitalAttributesWidgetComponent->GetWidget()); 
-	
-	if (!vitalAttributesWidget) {
-		LOGERROR("VitalAttributesWidget not retrieved in TssCharacter"); 
-	}
-	else {
-				
-		// create our widget controller and assign it to our widget.
-		if (!widgetControllerAsset) {
-			LOGERROR("WidgetControllerAsset not assigned in TssCharacter")
-		}
-		else {
-			
-			widgetController = NewObject<UTssWidgetController>(this, widgetControllerAsset); 		
-			widgetController->SetAbilitySystemComponent(abilitySystemComponent);
-			widgetController->SetAttributeSet(attributeSet); 
-			widgetController->BindCallbacksToDependencies();
-									
-			vitalAttributesWidget->SetWidgetController(widgetController); 			
-			widgetController->BroadcastInitialValues();
-		}		
-	}
 	
 	animInstance = Cast<UTssCharacterAnimInstance>(GetMesh()->GetAnimInstance()); 
 	
@@ -50,7 +22,6 @@ void ATssCharacter::BeginPlay() {
 		LOGERROR("Anim Instance not found in TssCharacter"); 
 	}
 	
-	startingWorldRotation = vitalAttributesWidgetComponent->GetComponentRotation();	
 	GetCharacterMovement()->MaxWalkSpeed = walkSpeed;
 
 	equippedPrimaryAbilityTag = defaultPrimaryAbilityTag; 
@@ -63,8 +34,6 @@ void ATssCharacter::BeginPlay() {
 
 void ATssCharacter::Tick(float DeltaSeconds) {
 	Super::Tick(DeltaSeconds);
-	
-	vitalAttributesWidgetComponent->SetWorldRotation(startingWorldRotation);
 }
 
 //-----------------------------------------------------------------------------------------
@@ -184,6 +153,14 @@ void ATssCharacter::EquipAbility(const TObjectPtr<UTssAbilityInfo>& abilityInfo)
 		else if (abilityInfo->abilityTag == equippedSecondaryAbilityTag) {
 			montageTag = tags.Montage_Arms_Secondary; 
 		}
+	}
+	
+	if (abilityInfo->abilityTag == equippedPrimaryAbilityTag) {
+		if (PrimaryAbilityAssigned.IsBound()) PrimaryAbilityAssigned.Broadcast(abilityInfo); 
+	}
+	
+	if (abilityInfo->abilityTag == equippedSecondaryAbilityTag) {
+		if (SecondaryAbilityAssigned.IsBound()) SecondaryAbilityAssigned.Broadcast(abilityInfo); 
 	}
 	
 	abilitySystemComponent->AddCharacterAbility(abilityInfo->ability, montageTag); 

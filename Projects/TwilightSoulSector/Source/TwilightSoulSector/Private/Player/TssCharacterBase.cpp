@@ -23,11 +23,13 @@ void ATssCharacterBase::BeginPlay() {
 		LOGERROR("Attribute Set not found in TssCharacterBase"); 
 	}
 	else {
-				
+						
 		abilitySystemComponent->InitStats(UTssAttributeSet::StaticClass(), defaultAttribues); 
 		abilitySystemComponent->AddCharacterAbilities(defaultAbilities);
 		
 		attributeSet->FullRestore(); 
+		
+		if (AttributesAssigned.IsBound()) AttributesAssigned.Broadcast(); 
 	}
 }
 

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "AbilitySystemComponent.h"
 #include "Structs.h"
+#include "TssEvents.h"
 #include "AbilitySystem/TssAbilitySystemComponent.h"
 #include "AbilitySystem/TssAttributeSet.h"
 #include "GameFramework/Character.h"
@@ -27,7 +28,15 @@ struct FTaggedMontage {
 UCLASS()
 class TWILIGHTSOULSECTOR_API ATssCharacterBase : public ACharacter {
 	GENERATED_BODY()
+	
+	//-----------------------------------------------------------------------------------------
+	// Events:
+	//-----------------------------------------------------------------------------------------
 
+public: 
+	
+	FActionDelegate AttributesAssigned;
+	
 	//-----------------------------------------------------------------------------------------
 	// Components:
 	//-----------------------------------------------------------------------------------------
@@ -88,6 +97,7 @@ public:
 public:
 	
 	TObjectPtr<UTssAbilitySystemComponent> GetAbilitySystemComponent() { return abilitySystemComponent; }
+	TObjectPtr<UTssAttributeSet> GetAttributeSet() { return attributeSet; }
 	
 	bool GetIsDead() const { return isDead; }
 	

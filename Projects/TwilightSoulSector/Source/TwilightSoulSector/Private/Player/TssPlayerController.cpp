@@ -5,6 +5,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Debug/DebugLog.h"
+#include "UI/TssHUD.h"
 
 //-----------------------------------------------------------------------------------------
 // Unreal Lifecycle:
@@ -42,6 +43,10 @@ void ATssPlayerController::OnPossess(APawn* InPawn) {
 	
 	if (!tssCharacter) {
 		UE_LOG(LogTemp, Error, TEXT("Character Not Properly Cast in TssPlayerController!"));
+	}
+	else {
+		
+		tssCharacter->AttributesAssigned.AddDynamic(this, &ATssPlayerController::TssCharacter_AttributesAssigned);
 	}
 }
 
@@ -136,4 +141,11 @@ void ATssPlayerController::Input_EquipPrimaryPressed() {
 
 void ATssPlayerController::Input_EquipSecondaryPressed() {
 	if (tssCharacter) tssCharacter->AttemptEquipSecondary(); 
+}
+
+void ATssPlayerController::TssCharacter_AttributesAssigned() {
+	
+	if (ATssHUD* tssHud = Cast<ATssHUD>(GetHUD())) {			
+		tssHud->InitHud(tssCharacter->GetAbilitySystemComponent(), tssCharacter->GetAttributeSet(), tssCharacter);			
+	}
 }

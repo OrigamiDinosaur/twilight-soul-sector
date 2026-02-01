@@ -86,4 +86,7 @@ private:
 	
 	void Input_EquipPrimaryPressed(); 
 	void Input_EquipSecondaryPressed(); 
+	
+	UFUNCTION()
+	void TssCharacter_AttributesAssigned(); 
 };
