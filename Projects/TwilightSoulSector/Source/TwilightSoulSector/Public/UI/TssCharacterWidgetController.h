@@ -21,7 +21,13 @@ public:
 	FAbilityInfoDelegate PrimaryAbilityAssigned;
 	
 	UPROPERTY(BlueprintAssignable)
+	FActionDelegate PrimaryAbilityUnassigned;
+	
+	UPROPERTY(BlueprintAssignable)
 	FAbilityInfoDelegate SecondaryAbilityAssigned;
+	
+	UPROPERTY(BlueprintAssignable)
+	FActionDelegate SecondaryAbilityUnassigned;
 	
 	//-----------------------------------------------------------------------------------------
 	// Private Fields:
@@ -50,7 +56,13 @@ private:
 	void TssCharacter_PrimaryAbilityAssigned(UTssAbilityInfo* info);
 	
 	UFUNCTION()
+	void TssCharacter_PrimaryAbilityUnassigned(); 
+	
+	UFUNCTION()
 	void TssCharacter_SecondaryAbilityAssigned(UTssAbilityInfo* info); 
+	
+	UFUNCTION()
+	void TssCharacter_SecondaryAbilityUnassigned(); 
 	
 	//-----------------------------------------------------------------------------------------
 	// Public Methods:

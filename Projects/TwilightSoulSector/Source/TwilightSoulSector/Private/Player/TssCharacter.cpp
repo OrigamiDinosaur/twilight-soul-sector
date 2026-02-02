@@ -101,6 +101,7 @@ void ATssCharacter::AttemptEquipPrimary() {
 	
 	if (equippedPrimaryAbilityTag == equippedSecondaryAbilityTag) {
 		abilitySystemComponent->RemoveCharacterAbility(equippedSecondaryAbilityTag); 
+		if (SecondaryAbilityUnassigned.IsBound()) SecondaryAbilityUnassigned.Broadcast(); 
 		equippedSecondaryAbilityTag = FGameplayTag(); 
 	}
 	
@@ -116,6 +117,7 @@ void ATssCharacter::AttemptEquipSecondary() {
 	
 	if (equippedPrimaryAbilityTag == equippedSecondaryAbilityTag) {
 		abilitySystemComponent->RemoveCharacterAbility(equippedPrimaryAbilityTag); 
+		if (PrimaryAbilityUnassigned.IsBound()) PrimaryAbilityUnassigned.Broadcast(); 
 		equippedPrimaryAbilityTag = FGameplayTag(); 
 	}
 	

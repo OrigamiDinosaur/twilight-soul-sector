@@ -21,7 +21,9 @@ class TWILIGHTSOULSECTOR_API ATssCharacter : public ATssCharacterBase {
 public: 
 	
 	FAbilityInfoDelegate PrimaryAbilityAssigned;
+	FActionDelegate PrimaryAbilityUnassigned;
 	FAbilityInfoDelegate SecondaryAbilityAssigned;
+	FActionDelegate SecondaryAbilityUnassigned;
 	
 	//-----------------------------------------------------------------------------------------
 	// Inspector Variables:
