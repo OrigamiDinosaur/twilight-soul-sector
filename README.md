@@ -6,13 +6,13 @@ I have worked in Unreal Engine for around 5 years, but all of my professional wo
 
 This is a project built on the Gameplay Ability System (GAS). I have chosen to do this for two main reasons. 
 1. I love RPGs and so this will keep me interested in the work. 
-2. Its something I'm not that familiar with, and I want to keep expanding my knowledge. 
+2. It's something I'm not that familiar with, and I want to keep expanding my knowledge. 
 
 ## Current State
 
 I have just completed Stage 1 of my roadmap. 
 
-This entailed creating the foundation for the other stages, primarily 
+This entailed creating the foundation for the other stages, primarily:
 - Basic Locomotion
 - Vital Attributes (Health, Mana, Stamina)
 - Basic Abilities	 
@@ -53,11 +53,13 @@ The final stage of this project will be slotting all these pieces together to cr
 
 ## Known Issues / Things to Implement
 
-- Audio
-	- Potion Pickup 
-	- Ability Equip
-	- Enemy Hit
-	- Enemy Die
+Audio
+- Potion Pickup 
+- Ability Equip
+- Enemy Hit
+- Enemy Die
+Animation
+- Player locomotion blendstate has issues on diagonals
 
 
 
