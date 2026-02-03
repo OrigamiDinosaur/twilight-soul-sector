@@ -58,6 +58,7 @@ Audio
 - Ability Equip
 - Enemy Hit
 - Enemy Die
+
 Animation
 - Player locomotion blendstate has issues on diagonals
 
