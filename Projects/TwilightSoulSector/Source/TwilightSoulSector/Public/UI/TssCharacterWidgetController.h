@@ -29,6 +29,12 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FActionDelegate SecondaryAbilityUnassigned;
 	
+	UPROPERTY(BlueprintAssignable)
+	FActionDelegate AbilityEquipAvailable; 
+	
+	UPROPERTY(BlueprintAssignable)
+	FActionDelegate AbilityEquipUnavailable; 
+	
 	//-----------------------------------------------------------------------------------------
 	// Private Fields:
 	//-----------------------------------------------------------------------------------------
@@ -64,11 +70,17 @@ private:
 	UFUNCTION()
 	void TssCharacter_SecondaryAbilityUnassigned(); 
 	
+	UFUNCTION()
+	void TssCharacter_AbilityEquipAvailable();
+	
+	UFUNCTION()
+	void TssCharacter_AbilityEquipUnavailable(); 
+	
 	//-----------------------------------------------------------------------------------------
 	// Public Methods:
 	//-----------------------------------------------------------------------------------------
 	
 public:
 	
-	virtual void BroadcastInitialValues() override;
+	virtual void BindCallbacksToDependencies() override;
 };

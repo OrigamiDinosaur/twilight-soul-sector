@@ -84,12 +84,13 @@ void ATssCharacter::FaceTarget(const FVector& facingTarget) {
 void ATssCharacter::AllowAbilityEquip(const TObjectPtr<UTssAbilityInfo> ability) {
 	equippableAbility = ability;	
 	abilitySystemComponent->AddLooseGameplayTag(FTssGameplayTags::Get().State_Player_Equip); 
+	if (AbilityEquipAvailable.IsBound()) AbilityEquipAvailable.Broadcast();
 }
 
 void ATssCharacter::DisableAbilityEquip() {
-	
 	equippableAbility = nullptr; 	
 	abilitySystemComponent->RemoveLooseGameplayTag(FTssGameplayTags::Get().State_Player_Equip); 
+	if (AbilityEquipUnavailable.IsBound()) AbilityEquipUnavailable.Broadcast(); 
 }
 
 void ATssCharacter::AttemptEquipPrimary() {
@@ -100,6 +101,9 @@ void ATssCharacter::AttemptEquipPrimary() {
 	equippedPrimaryAbilityTag = equippableAbility->abilityTag; 	
 	
 	if (equippedPrimaryAbilityTag == equippedSecondaryAbilityTag) {
+		
+		LOG("??");
+		
 		abilitySystemComponent->RemoveCharacterAbility(equippedSecondaryAbilityTag); 
 		if (SecondaryAbilityUnassigned.IsBound()) SecondaryAbilityUnassigned.Broadcast(); 
 		equippedSecondaryAbilityTag = FGameplayTag(); 

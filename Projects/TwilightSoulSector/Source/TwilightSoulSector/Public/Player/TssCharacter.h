@@ -25,14 +25,14 @@ public:
 	FAbilityInfoDelegate SecondaryAbilityAssigned;
 	FActionDelegate SecondaryAbilityUnassigned;
 	
+	FActionDelegate AbilityEquipAvailable; 
+	FActionDelegate AbilityEquipUnavailable; 
+	
 	//-----------------------------------------------------------------------------------------
 	// Inspector Variables:
 	//-----------------------------------------------------------------------------------------
 
 protected:
-	
-	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | References")
-	TSubclassOf<UTssWidgetController> widgetControllerAsset;	
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | Defaults")
 	TArray<TObjectPtr<UTssAbilityInfo>> startingAbilities;

@@ -2,6 +2,8 @@
 
 #include "AbilitySystem/TssAbilitySystemComponent.h"
 
+#include "Debug/DebugLog.h"
+
 //-----------------------------------------------------------------------------------------
 // Public Methods:
 //-----------------------------------------------------------------------------------------
@@ -30,9 +32,8 @@ void UTssAbilitySystemComponent::RemoveCharacterAbility(const FGameplayTag abili
 	
 	FGameplayAbilitySpec* specToRemove = nullptr;
 	
-	for (FGameplayAbilitySpec& abilitySpec : GetActivatableAbilities()) {
-			
-		if (abilitySpec.GetDynamicSpecSourceTags().HasTagExact(abilityTag)) specToRemove = &abilitySpec; 
+	for (FGameplayAbilitySpec& abilitySpec : GetActivatableAbilities()) {		
+		if (abilitySpec.Ability.Get()->GetAssetTags().HasTagExact(abilityTag)) specToRemove = &abilitySpec; 
 	}
 	
 	if (specToRemove) {
