@@ -101,9 +101,7 @@ void ATssCharacter::AttemptEquipPrimary() {
 	equippedPrimaryAbilityTag = equippableAbility->abilityTag; 	
 	
 	if (equippedPrimaryAbilityTag == equippedSecondaryAbilityTag) {
-		
-		LOG("??");
-		
+				
 		abilitySystemComponent->RemoveCharacterAbility(equippedSecondaryAbilityTag); 
 		if (SecondaryAbilityUnassigned.IsBound()) SecondaryAbilityUnassigned.Broadcast(); 
 		equippedSecondaryAbilityTag = FGameplayTag(); 
