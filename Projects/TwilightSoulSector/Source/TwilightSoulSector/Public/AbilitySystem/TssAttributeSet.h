@@ -23,6 +23,20 @@ class TWILIGHTSOULSECTOR_API UTssAttributeSet : public UAttributeSet {
 	
 public:
 	
+	// Primary Attributes ---------------------------------------------------------------------
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Primary Attributes")
+	FGameplayAttributeData Might;
+	ATTRIBUTE_ACCESSORS(UTssAttributeSet, Might);	
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Primary Attributes")
+	FGameplayAttributeData Clarity;
+	ATTRIBUTE_ACCESSORS(UTssAttributeSet, Clarity);
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Primary Attributes")
+	FGameplayAttributeData Determination;
+	ATTRIBUTE_ACCESSORS(UTssAttributeSet, Determination);
+	
 	// Derived Attributes ---------------------------------------------------------------------
 	
 	UPROPERTY(BlueprintReadOnly, Category = "Derived Attributes")
@@ -36,6 +50,18 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Derived Attributes")
 	FGameplayAttributeData MaxStamina;
 	ATTRIBUTE_ACCESSORS(UTssAttributeSet, MaxStamina);	
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Derived Attributes")
+	FGameplayAttributeData PhysicalDamage;
+	ATTRIBUTE_ACCESSORS(UTssAttributeSet, PhysicalDamage);	
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Derived Attributes")
+	FGameplayAttributeData MagicalDamage;
+	ATTRIBUTE_ACCESSORS(UTssAttributeSet, MagicalDamage);	
+	
+	UPROPERTY(BlueprintReadOnly, Category = "Derived Attributes")
+	FGameplayAttributeData Resistance;
+	ATTRIBUTE_ACCESSORS(UTssAttributeSet, Resistance);	
 	
 	// Vital Attributes -----------------------------------------------------------------------
 	

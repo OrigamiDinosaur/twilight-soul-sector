@@ -16,11 +16,21 @@ public:
 	
 	// Attributes -----------------------------------------------------------------------------
 	
+	// Primary
+	
+	FGameplayTag Attributes_Primary_Might;
+	FGameplayTag Attributes_Primary_Clarity;
+	FGameplayTag Attributes_Primary_Determination;
+	
 	// Derived 
 	
 	FGameplayTag Attributes_Derived_MaxHealth;
 	FGameplayTag Attributes_Derived_MaxMana; 
 	FGameplayTag Attributes_Derived_MaxStamina;
+	
+	FGameplayTag Attributes_Derived_PhysicalDamage;
+	FGameplayTag Attributes_Derived_MagicalDamage;
+	FGameplayTag Attributes_Derived_Resistance;	
 	
 	// Vital 
 	

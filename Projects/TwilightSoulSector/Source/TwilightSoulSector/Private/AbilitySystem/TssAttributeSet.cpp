@@ -80,10 +80,19 @@ FGameplayAttribute UTssAttributeSet::GetAttributeFromTag(const FGameplayTag& att
 	
 	// really wish we could do a switch for gameplay tags but hey ho. 
 	
+	// primary 
+	if (attributeTag.MatchesTagExact(tags.Attributes_Primary_Might)) return GetMightAttribute();
+	if (attributeTag.MatchesTagExact(tags.Attributes_Primary_Clarity)) return GetClarityAttribute();
+	if (attributeTag.MatchesTagExact(tags.Attributes_Primary_Determination)) return GetDeterminationAttribute();
+	
 	// derived
 	if (attributeTag.MatchesTagExact(tags.Attributes_Derived_MaxHealth)) return GetMaxHealthAttribute();
 	if (attributeTag.MatchesTagExact(tags.Attributes_Derived_MaxMana)) return GetMaxManaAttribute();
 	if (attributeTag.MatchesTagExact(tags.Attributes_Derived_MaxStamina)) return GetMaxStaminaAttribute();
+	
+	if (attributeTag.MatchesTagExact(tags.Attributes_Derived_PhysicalDamage)) return GetPhysicalDamageAttribute();
+	if (attributeTag.MatchesTagExact(tags.Attributes_Derived_MagicalDamage)) return GetMagicalDamageAttribute();
+	if (attributeTag.MatchesTagExact(tags.Attributes_Derived_Resistance)) return GetResistanceAttribute();
 	
 	// vital 
 	if (attributeTag.MatchesTagExact(tags.Attributes_Vital_Health)) return GetHealthAttribute();

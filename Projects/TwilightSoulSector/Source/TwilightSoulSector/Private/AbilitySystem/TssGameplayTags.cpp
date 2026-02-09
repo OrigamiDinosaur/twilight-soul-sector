@@ -15,11 +15,21 @@ void FTssGameplayTags::InitializeGameplayTags() {
 	
 	// ---------- Attributes --------------------
 	
+	// Primary Attributes
+	
+	instance.Attributes_Primary_Might = tm.AddNativeGameplayTag(FName("Attributes.Primary.Might"), FString("Determines Physical Damage and Contributes to Max Health, and Max Stamina"));
+	instance.Attributes_Primary_Clarity = tm.AddNativeGameplayTag(FName("Attributes.Primary.Clarity"), FString("Determines Magical Damage and Contributes to Max Mana, and Max Health"));
+	instance.Attributes_Primary_Determination = tm.AddNativeGameplayTag(FName("Attributes.Primary.Determination"), FString("Determines Resistance and Contributes to Max Mana, and Max Stamina"));
+	
 	// Derived Attributes
 	
 	instance.Attributes_Derived_MaxHealth = tm.AddNativeGameplayTag(FName("Attributes.Derived.MaxHealth"), FString("Characters Max Health"));
 	instance.Attributes_Derived_MaxMana = tm.AddNativeGameplayTag(FName("Attributes.Derived.MaxMana"), FString("Characters Max Mana"));
 	instance.Attributes_Derived_MaxStamina = tm.AddNativeGameplayTag(FName("Attributes.Derived.MaxStamina"), FString("Characters Max Stamina"));
+	
+	instance.Attributes_Derived_PhysicalDamage = tm.AddNativeGameplayTag(FName("Attributes.Derived.PhysicalDamage"), FString("Determines bonus Physical Damage"));
+	instance.Attributes_Derived_MagicalDamage = tm.AddNativeGameplayTag(FName("Attributes.Derived.MagicalDamage"), FString("Determines bonus Magical Damage"));
+	instance.Attributes_Derived_Resistance = tm.AddNativeGameplayTag(FName("Attributes.Derived.Resistance"), FString("Determines base Damage Resistance"));
 	
 	// Vital Attributes
 	
