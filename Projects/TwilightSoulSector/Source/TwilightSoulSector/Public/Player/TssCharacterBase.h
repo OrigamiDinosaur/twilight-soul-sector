@@ -58,11 +58,17 @@ protected:
 	TObjectPtr<UDataTable> defaultAttribues;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character Base | References")
+	TSubclassOf<UGameplayEffect> derivedAttributeCalculator;
+		
+	UPROPERTY(EditDefaultsOnly, Category = "Tss Character Base | References")
 	TArray<TSubclassOf<UGameplayAbility>> defaultAbilities; 
 
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character Base | References")
 	TArray<FTaggedMontage> abilityMontages;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Tss Character Base | Attributes")
+	int32 characterLevel = 1;
+	
 	//-----------------------------------------------------------------------------------------
 	// Protected Fields:
 	//-----------------------------------------------------------------------------------------
@@ -100,6 +106,7 @@ public:
 	TObjectPtr<UTssAttributeSet> GetAttributeSet() { return attributeSet; }
 	
 	bool GetIsDead() const { return isDead; }
+	int32 GetCharacterLevel() const { return characterLevel; }
 	
 	//-----------------------------------------------------------------------------------------
 	// Public Methods:
@@ -126,4 +133,6 @@ protected:
 	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void HandleDeath(); 
+	
+	void ApplyEffectToSelf(const TSubclassOf<UGameplayEffect> gameplayEffectClass, const float level = 1);
 };

@@ -26,6 +26,8 @@ void ATssCharacterBase::BeginPlay() {
 						
 		abilitySystemComponent->InitStats(UTssAttributeSet::StaticClass(), defaultAttribues); 
 		abilitySystemComponent->AddCharacterAbilities(defaultAbilities);
+				
+		if (IsValid(derivedAttributeCalculator)) ApplyEffectToSelf(derivedAttributeCalculator); 
 		
 		attributeSet->FullRestore(); 
 		
@@ -68,6 +70,20 @@ FTaggedMontage ATssCharacterBase::GetAbilityMontageByTag(const FGameplayTag& mon
 
 FVector ATssCharacterBase::GetFacingDirection() {
 	return GetCapsuleComponent()->GetForwardVector();
+}
+
+void ATssCharacterBase::ApplyEffectToSelf(const TSubclassOf<UGameplayEffect> gameplayEffectClass, const float level) {
+	
+	if (!IsValid(abilitySystemComponent)) {
+		LOGERROR("Attempting to apply effect with invalid AbilitySystemComponent in TssCharacterBase"); 
+		return; 
+	}
+	
+	FGameplayEffectContextHandle effectContextHandle = abilitySystemComponent->MakeEffectContext();
+	effectContextHandle.AddSourceObject(this); 
+	
+	const FGameplayEffectSpecHandle specHandle = abilitySystemComponent->MakeOutgoingSpec(gameplayEffectClass, level, effectContextHandle);
+	abilitySystemComponent->ApplyGameplayEffectSpecToSelf(*specHandle.Data.Get()); 
 }
 
 void ATssCharacterBase::HandleDeath_Implementation() {}
