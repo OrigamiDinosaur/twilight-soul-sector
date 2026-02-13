@@ -2,6 +2,7 @@
 
 #include "AbilitySystem/TssAbilitySystemComponent.h"
 
+#include "AbilitySystem/TssGameplayTags.h"
 #include "Debug/DebugLog.h"
 
 //-----------------------------------------------------------------------------------------
@@ -84,9 +85,18 @@ void UTssAbilitySystemComponent::AbilityReleased(const FGameplayTag& abilityTag)
 	}
 }
 
-void UTssAbilitySystemComponent::ApplySimpleGameplayEffect(TSubclassOf<UGameplayEffect> effect, float level) {
+void UTssAbilitySystemComponent::ApplySimpleGameplayEffect(const TSubclassOf<UGameplayEffect> effect, const float level) {
 
 	const FGameplayEffectContextHandle contextHandle = MakeEffectContext(); 
 	const FGameplayEffectSpecHandle specHandle = MakeOutgoingSpec(effect, level, contextHandle); 
 	ApplyGameplayEffectSpecToSelf(*specHandle.Data); 	
+}
+
+void UTssAbilitySystemComponent::ApplyDamageEffect(const TSubclassOf<UGameplayEffect> effect, const float damage, const float level) {
+	
+	const FGameplayEffectContextHandle contextHandle = MakeEffectContext();
+	const FGameplayEffectSpecHandle specHandle = MakeOutgoingSpec(effect, level, contextHandle); 
+	FGameplayEffectSpec* spec = specHandle.Data.Get();
+	spec->SetSetByCallerMagnitude(FTssGameplayTags::Get().Attributes_Meta_OutgoingDamage, damage);
+	ApplyGameplayEffectSpecToSelf(*spec); 
 }

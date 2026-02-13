@@ -59,9 +59,8 @@ void ATssProjectile::Collision_OnBeginOverlap(UPrimitiveComponent* overlappedCom
 	if (impactSound) UGameplayStatics::PlaySoundAtLocation(this, impactSound, GetActorLocation(), FRotator(0.0f));
 	if (impactSystem) UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, impactSystem, GetActorLocation()); 
 	
-	// todo: apply gameplay effect. 
 	if (const TObjectPtr<ATssCharacterBase> characterBase = Cast<ATssCharacterBase>(otherActor)) {		
-		characterBase->GetAbilitySystemComponent()->ApplySimpleGameplayEffect(damageEffectAsset); 
+		characterBase->GetAbilitySystemComponent()->ApplyDamageEffect(damageEffectAsset, damage);
 	}	
 	
 	Destroy(); 

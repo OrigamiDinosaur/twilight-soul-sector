@@ -27,3 +27,24 @@ void UTssAreaGameplayAbility::ApplyEffectInRadius() {
 		}
 	}
 }
+
+void UTssAreaGameplayAbility::ApplyDamageInRadius(float damage) {
+	
+	TArray<AActor*> actorsToIgnore;
+	actorsToIgnore.Add(GetAvatarActorFromActorInfo());
+	
+	TArray<AActor*> overlappingActors;
+	if (GetLiveCharactersWithinRadius(overlappingActors, actorsToIgnore, radius, GetAvatarActorFromActorInfo()->GetActorLocation())) {
+		
+		for (AActor* actor : overlappingActors) {
+			
+			if (UAbilitySystemComponent* asc = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(actor)) {
+				
+				if (UTssAbilitySystemComponent* tssAsc = Cast<UTssAbilitySystemComponent>(asc)) {
+					
+					tssAsc->ApplyDamageEffect(effectToApply, damage); 
+				}
+			}
+		}
+	}
+}

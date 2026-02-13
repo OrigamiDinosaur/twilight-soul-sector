@@ -41,6 +41,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Projectile | References")
 	TObjectPtr<USoundBase> impactSound; 
 	
+	UPROPERTY(EditDefaultsOnly, Category = "Projectile | Damage")
+	float damage;
+	
 	UPROPERTY(EditDefaultsOnly, Category = "Projectile | Homing")
 	float homingSpeed = 800.0f; 
 		

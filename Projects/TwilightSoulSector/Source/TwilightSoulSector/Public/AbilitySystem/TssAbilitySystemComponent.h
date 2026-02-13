@@ -27,4 +27,5 @@ public:
 	void AbilityReleased(const FGameplayTag& abilityTag);
 	
 	void ApplySimpleGameplayEffect(TSubclassOf<UGameplayEffect> effect, float level = 1.0f);
+	void ApplyDamageEffect(const TSubclassOf<UGameplayEffect> effect, const float damage, const float level = 1.0f);
 };

@@ -30,4 +30,7 @@ protected:
 	
 	UFUNCTION(BlueprintCallable)
 	void ApplyEffectInRadius(); 
+	
+	UFUNCTION(BlueprintCallable)
+	void ApplyDamageInRadius(float damage); 
 };

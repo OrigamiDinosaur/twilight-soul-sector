@@ -40,6 +40,7 @@ public:
 	
 	// Meta
 	
+	FGameplayTag Attributes_Meta_OutgoingDamage;
 	FGameplayTag Attributes_Meta_IncomingDamage;
 	
 	// Abilities ------------------------------------------------------------------------------

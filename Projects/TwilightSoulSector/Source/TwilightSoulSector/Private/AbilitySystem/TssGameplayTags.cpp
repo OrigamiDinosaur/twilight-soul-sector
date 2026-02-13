@@ -39,6 +39,7 @@ void FTssGameplayTags::InitializeGameplayTags() {
 	
 	// Meta Attributes
 	
+	instance.Attributes_Meta_OutgoingDamage = tm.AddNativeGameplayTag(FName("Attributes.Meta.OutcomingDamage"));
 	instance.Attributes_Meta_IncomingDamage = tm.AddNativeGameplayTag(FName("Attributes.Meta.IncomingDamage"));
 	
 	// ---------- Abilities --------------------
