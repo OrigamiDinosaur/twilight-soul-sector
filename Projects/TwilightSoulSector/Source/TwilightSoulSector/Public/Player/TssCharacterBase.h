@@ -69,6 +69,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character Base | Attributes")
 	int32 characterLevel = 1;
 	
+	UPROPERTY(EditDefaultsOnly, Category = "Tss Character Base | Attributes")
+	int32 expDrop;
+	
 	//-----------------------------------------------------------------------------------------
 	// Protected Fields:
 	//-----------------------------------------------------------------------------------------

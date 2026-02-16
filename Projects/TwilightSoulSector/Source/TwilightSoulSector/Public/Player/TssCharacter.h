@@ -107,6 +107,8 @@ public:
 	void AttemptEquipPrimary();
 	void AttemptEquipSecondary(); 
 	
+	void Collect(FGameplayTag collectionTag, int magnitude); 
+	
 	//-----------------------------------------------------------------------------------------
 	// Protected Methods:
 	//-----------------------------------------------------------------------------------------	

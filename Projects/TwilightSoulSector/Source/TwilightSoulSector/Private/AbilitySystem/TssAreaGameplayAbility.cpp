@@ -28,7 +28,7 @@ void UTssAreaGameplayAbility::ApplyEffectInRadius() {
 	}
 }
 
-void UTssAreaGameplayAbility::ApplyDamageInRadius(float damage) {
+void UTssAreaGameplayAbility::ApplyDamageInRadius(const float damage) {
 	
 	TArray<AActor*> actorsToIgnore;
 	actorsToIgnore.Add(GetAvatarActorFromActorInfo());

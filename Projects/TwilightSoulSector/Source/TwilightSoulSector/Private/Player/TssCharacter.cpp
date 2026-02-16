@@ -126,6 +126,10 @@ void ATssCharacter::AttemptEquipSecondary() {
 	EquipAbility(equippableAbility); 
 }
 
+void ATssCharacter::Collect(const FGameplayTag collectionTag, const int magnitude) {	
+	LOGPARAMS("Collected %s %i", *collectionTag.ToString(), magnitude); 
+}
+
 //-----------------------------------------------------------------------------------------
 // Protected Methods:
 //-----------------------------------------------------------------------------------------	
