@@ -4,6 +4,7 @@
 
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "AbilitySystem/ExperienceCalculator.h"
 #include "Debug/DebugLog.h"
 #include "UI/TssHUD.h"
 
@@ -47,6 +48,12 @@ void ATssPlayerController::OnPossess(APawn* InPawn) {
 	else {
 		
 		tssCharacter->AttributesAssigned.AddDynamic(this, &ATssPlayerController::TssCharacter_AttributesAssigned);
+
+		if (UExperienceCalculator* expCalculator = GetWorld()->GetSubsystem<UExperienceCalculator>()) {
+			
+			if (expCurveTable) expCalculator->SetExpTable(expCurveTable); 
+			expCalculator->SetPlayerLevel(tssCharacter->GetCharacterLevel()); 		
+		}		
 	}
 }
 

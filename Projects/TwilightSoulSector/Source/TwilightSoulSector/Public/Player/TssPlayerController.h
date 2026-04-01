@@ -41,6 +41,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Player Controller | References")
 	TObjectPtr<UInputAction> equipSecondaryAction; 
 	
+	UPROPERTY(EditDefaultsOnly, Category = "Player Controller | References")
+	TObjectPtr<UCurveTable> expCurveTable;
+	
 	//-----------------------------------------------------------------------------------------
 	// Private Fields:
 	//-----------------------------------------------------------------------------------------
