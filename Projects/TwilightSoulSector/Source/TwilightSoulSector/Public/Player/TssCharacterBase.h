@@ -9,6 +9,7 @@
 #include "AbilitySystem/TssAbilitySystemComponent.h"
 #include "AbilitySystem/TssAttributeSet.h"
 #include "GameFramework/Character.h"
+#include "Interactions/Collectable.h"
 #include "TssCharacterBase.generated.h"
 
 USTRUCT(BlueprintType)
@@ -64,13 +65,22 @@ protected:
 	TArray<TSubclassOf<UGameplayAbility>> defaultAbilities; 
 
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character Base | References")
+	TSubclassOf<ACollectable> expDropAsset; 
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Tss Character Base | References")
 	TArray<FTaggedMontage> abilityMontages;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character Base | Attributes")
 	int32 characterLevel = 1;
 	
-	UPROPERTY(EditDefaultsOnly, Category = "Tss Character Base | Attributes")
-	int32 expDrop;
+	UPROPERTY(EditDefaultsOnly, Category = "Tss Character Base | Exp")
+	int32 numExpShardsToDrop;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Tss Character Base | Exp")
+	float spawnDistanceMin;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Tss Character Base | Exp")
+	float spawnDistanceMax;
 	
 	//-----------------------------------------------------------------------------------------
 	// Protected Fields:
@@ -80,6 +90,8 @@ protected:
 	
 	UPROPERTY(Transient)
 	TObjectPtr<UTssAttributeSet> attributeSet;
+	
+	int expTotal;  
 	
 	bool isDead; 
 	
@@ -138,4 +150,7 @@ protected:
 	void HandleDeath(); 
 	
 	void ApplyEffectToSelf(const TSubclassOf<UGameplayEffect> gameplayEffectClass, const float level = 1);
+		
+	void SpawnExp(); 
+	
 };

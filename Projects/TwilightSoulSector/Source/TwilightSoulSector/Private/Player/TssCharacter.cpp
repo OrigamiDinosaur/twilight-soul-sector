@@ -2,6 +2,7 @@
 
 #include "Player/TssCharacter.h"
 
+#include "AbilitySystem/ExperienceCalculator.h"
 #include "AbilitySystem/TssGameplayTags.h"
 #include "Components/CapsuleComponent.h"
 #include "Debug/DebugLog.h"
@@ -127,7 +128,10 @@ void ATssCharacter::AttemptEquipSecondary() {
 }
 
 void ATssCharacter::Collect(const FGameplayTag collectionTag, const int magnitude) {	
-	LOGPARAMS("Collected %s %i", *collectionTag.ToString(), magnitude); 
+	
+	if (collectionTag == FTssGameplayTags::Get().Collectable_Exp) {
+		AddExp(magnitude);
+	}
 }
 
 //-----------------------------------------------------------------------------------------
@@ -209,5 +213,24 @@ void ATssCharacter::UpdateLocomotionAnimation() {
 	}
 	
 	animInstance->SetLocomotion(adjustedHorizonal, adjustedVertical); 	
+}
+
+void ATssCharacter::AddExp(const int expAmount) {
+
+	const int expThreshold = GetWorld()->GetSubsystem<UExperienceCalculator>()->GetThresholdForLevel(characterLevel); 
+	
+	expTotal += expAmount; 
+		
+	if (expTotal >= expThreshold) {		
+		LevelUp();
+	}
+}
+
+void ATssCharacter::LevelUp() {
+	
+	characterLevel++; 	
+	GetWorld()->GetSubsystem<UExperienceCalculator>()->SetPlayerLevel(characterLevel); 
+	
+	LOG("Level Up!");
 }
 

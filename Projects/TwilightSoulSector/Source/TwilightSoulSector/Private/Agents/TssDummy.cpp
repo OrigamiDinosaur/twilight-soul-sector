@@ -26,5 +26,7 @@ void ATssDummy::BeginPlay() {
 void ATssDummy::HandleDeath_Implementation() {	
 	if (animInstance) animInstance->SetShouldDie(true); 
 	
+	SpawnExp();
+	
 	SetActorEnableCollision(false); 
 }

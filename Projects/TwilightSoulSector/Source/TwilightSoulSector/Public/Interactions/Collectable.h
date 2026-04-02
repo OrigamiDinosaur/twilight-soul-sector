@@ -10,6 +10,8 @@
 
 UENUM(BlueprintType)
 enum class ECollectibleStates : uint8 {
+	PreInit,
+	Spawning,
 	Idle,
 	Collecting,
 	Collected
@@ -45,6 +47,9 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Collectable")
 	USoundBase* collectedSfx; 
+	
+	UPROPERTY(EditInstanceOnly, Category = "Collectable")
+	bool isPlacedInWorld;
 	
 	//-----------------------------------------------------------------------------------------
 	// Private Fields:
@@ -88,13 +93,46 @@ protected:
 	void Collected_BP(); 
 	
 	//-----------------------------------------------------------------------------------------
+	// Getters / Setters:
+	//-----------------------------------------------------------------------------------------
+	
+public: 
+	
+	FORCEINLINE void SetMagnitude(const int inMagnitude) { collectionMagnitude = inMagnitude; }
+	
+	//-----------------------------------------------------------------------------------------
+	// Public Methods:
+	//-----------------------------------------------------------------------------------------
+	
+public: 
+	
+	void SpawnCollectable(); 
+	
+	//-----------------------------------------------------------------------------------------
 	// State Methods:
 	//-----------------------------------------------------------------------------------------
 	
+protected:	
+	
+	UFUNCTION(BlueprintCallable)
+	void ChangeStates(ECollectibleStates newState);
+	
 private:
 	
-	void ChangeStates(ECollectibleStates newState);
 	void UpdateStates(const float deltaTime); 
+	
+protected:
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void StateSpawning_Enter_BP(); 
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void StateSpawning_Update_BP(const float deltaTime);
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void StateIdle_Update_BP(const float deltaTime); 
+	
+private: 
 	
 	void StatesCollecting_Update(const float deltaTime); 
 	void StatesCollected_Enter(); 

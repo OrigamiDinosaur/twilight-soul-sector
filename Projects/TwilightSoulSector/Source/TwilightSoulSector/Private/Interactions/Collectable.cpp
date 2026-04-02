@@ -17,7 +17,7 @@ ACollectable::ACollectable() {
 void ACollectable::BeginPlay() {
 	Super::BeginPlay();
 	
-	state = ECollectibleStates::Idle; 
+	if (isPlacedInWorld) ChangeStates(ECollectibleStates::Idle); 
 }
 
 void ACollectable::Tick(const float DeltaTime) {
@@ -39,6 +39,16 @@ void ACollectable::OnOverlap(AActor* targetActor) {
 }
 
 //-----------------------------------------------------------------------------------------
+// Public Methods:
+//-----------------------------------------------------------------------------------------
+
+void ACollectable::SpawnCollectable() {
+	if (state != ECollectibleStates::PreInit) return; 
+	
+	ChangeStates(ECollectibleStates::Spawning); 
+}
+
+//-----------------------------------------------------------------------------------------
 // State Methods:
 //-----------------------------------------------------------------------------------------
 
@@ -48,6 +58,9 @@ void ACollectable::ChangeStates(const ECollectibleStates newState) {
 	state = newState; 
 	
 	switch (state) {
+	case ECollectibleStates::Spawning:
+		StateSpawning_Enter_BP();
+		break;
 	case ECollectibleStates::Collected:
 		StatesCollected_Enter();
 		break;
@@ -57,6 +70,12 @@ void ACollectable::ChangeStates(const ECollectibleStates newState) {
 void ACollectable::UpdateStates(const float deltaTime) {
 	
 	switch (state) {
+	case ECollectibleStates::Spawning:
+		StateSpawning_Update_BP(deltaTime);
+		break;
+	case ECollectibleStates::Idle:
+		StateIdle_Update_BP(deltaTime); 
+		break;
 	case ECollectibleStates::Collecting:
 		StatesCollecting_Update(deltaTime);
 		break;

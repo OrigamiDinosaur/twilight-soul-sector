@@ -126,4 +126,7 @@ private:
 	
 	void EquipAbility(const TObjectPtr<UTssAbilityInfo>& abilityInfo); 
 	void UpdateLocomotionAnimation(); 
+	
+	void AddExp(int expAmount);	
+	void LevelUp(); 
 };

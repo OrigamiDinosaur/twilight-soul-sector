@@ -2,8 +2,10 @@
 
 #include "Player/TssCharacterBase.h"
 
+#include "AbilitySystem/ExperienceCalculator.h"
 #include "Components/CapsuleComponent.h"
 #include "Debug/DebugLog.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 //-----------------------------------------------------------------------------------------
 // Unreal Lifecycle:
@@ -72,6 +74,10 @@ FVector ATssCharacterBase::GetFacingDirection() {
 	return GetCapsuleComponent()->GetForwardVector();
 }
 
+void ATssCharacterBase::HandleDeath_Implementation() {
+	SpawnExp();
+}
+
 void ATssCharacterBase::ApplyEffectToSelf(const TSubclassOf<UGameplayEffect> gameplayEffectClass, const float level) {
 	
 	if (!IsValid(abilitySystemComponent)) {
@@ -86,4 +92,30 @@ void ATssCharacterBase::ApplyEffectToSelf(const TSubclassOf<UGameplayEffect> gam
 	abilitySystemComponent->ApplyGameplayEffectSpecToSelf(*specHandle.Data.Get()); 
 }
 
-void ATssCharacterBase::HandleDeath_Implementation() {}
+//-----------------------------------------------------------------------------------------
+// Private Methods:
+//-----------------------------------------------------------------------------------------
+
+void ATssCharacterBase::SpawnExp() {
+	
+	UWorld* world = GetWorld();
+	const float degreesPerTurn = 360.0f / numExpShardsToDrop;
+
+	const int totalExp = world->GetSubsystem<UExperienceCalculator>()->GetExpReward(characterLevel);
+	const int expPerDrop = totalExp / numExpShardsToDrop; 
+		
+	for (int i = 0; i < numExpShardsToDrop; i++) {
+		
+		const float spawnDistance = FMath::RandRange(spawnDistanceMin, spawnDistanceMax);
+		FVector forwardVector = GetActorForwardVector() * spawnDistance; 
+		
+		FVector rotatedForwardVector = forwardVector.RotateAngleAxis(degreesPerTurn * i, FVector::UpVector);
+		
+		FVector spawnLocation = GetMesh()->GetComponentLocation() + rotatedForwardVector;
+		FRotator spawnRotation = FRotator(0.0f); 
+		
+		ACollectable* expDrop = world->SpawnActor<ACollectable>(expDropAsset, spawnLocation, spawnRotation); 
+		expDrop->SetMagnitude(expPerDrop); 
+		expDrop->SpawnCollectable();		
+	}
+}
