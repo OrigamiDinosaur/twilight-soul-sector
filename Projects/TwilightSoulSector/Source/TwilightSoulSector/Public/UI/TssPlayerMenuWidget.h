@@ -4,9 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "UI/TssUserWidget.h"
-#include "PlayerMenuWidget.generated.h"
+#include "TssPlayerMenuWidget.generated.h"
 
 UCLASS()
-class TWILIGHTSOULSECTOR_API UPlayerMenuWidget : public UTssUserWidget {
+class TWILIGHTSOULSECTOR_API UTssPlayerMenuWidget : public UTssUserWidget {
 	GENERATED_BODY()
 };

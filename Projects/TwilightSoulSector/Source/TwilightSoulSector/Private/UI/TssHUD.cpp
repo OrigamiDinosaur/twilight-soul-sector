@@ -2,6 +2,7 @@
 
 #include "UI/TssHUD.h"
 
+#include "ImaginaryBlueprintData.h"
 #include "Debug/DebugLog.h"
 #include "UI/TssCharacterWidgetController.h"
 
@@ -28,5 +29,36 @@ void ATssHUD::InitHud(TObjectPtr<UTssAbilitySystemComponent> asc, TObjectPtr<UTs
 		overlayWidget->SetWidgetController(overlayWidgetController); 
 		overlayWidget->AddToViewport(); 
 		overlayWidgetController->BroadcastInitialValues(); 
+	}
+	
+	// create our attribute menu
+	playerMenuWidget = Cast<UTssPlayerMenuWidget>(CreateWidget<UUserWidget>(GetWorld(), playerMenuWidgetAsset));
+	
+	if (!playerMenuWidget) {
+		LOGERROR("Player Menu Widget not found in Tss HUD");
+	}
+	else {
+		
+		playerMenuWidgetController = NewObject<UTssPlayerMenuWidgetController>(this, playerMenuWidgetControllerAsset);
+		playerMenuWidgetController->SetAbilitySystemComponent(asc); 
+		playerMenuWidgetController->SetAttributeSet(as); 
+		playerMenuWidgetController->SetTssCharacter(character); 		
+		playerMenuWidgetController->BindCallbacksToDependencies();
+		
+		playerMenuWidget->SetWidgetController(playerMenuWidgetController);
+		playerMenuWidget->AddToViewport();
+		playerMenuWidget->SetVisibility(ESlateVisibility::Hidden); 
+		playerMenuWidgetController->BroadcastInitialValues(); 
+	}
+}
+
+void ATssHUD::ShowHidePlayerMenu(const bool shouldShow) {
+	if (!playerMenuWidget) return; 
+	
+	if (shouldShow) {
+		playerMenuWidget->SetVisibility(ESlateVisibility::Visible);
+	}
+	else {
+		playerMenuWidget->SetVisibility(ESlateVisibility::Hidden); 
 	}
 }

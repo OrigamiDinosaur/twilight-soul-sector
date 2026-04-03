@@ -76,6 +76,8 @@ void ATssPlayerController::SetupInputComponent() {
 	
 	input->BindAction(equipPrimaryAction, ETriggerEvent::Triggered, this, &ATssPlayerController::Input_EquipPrimaryPressed);
 	input->BindAction(equipSecondaryAction, ETriggerEvent::Triggered, this, &ATssPlayerController::Input_EquipSecondaryPressed);
+	
+	input->BindAction(menuAction, ETriggerEvent::Started, this, &ATssPlayerController::Input_Menu); 
 }
 
 void ATssPlayerController::Tick(const float DeltaSeconds) {
@@ -148,6 +150,16 @@ void ATssPlayerController::Input_EquipPrimaryPressed() {
 
 void ATssPlayerController::Input_EquipSecondaryPressed() {
 	if (tssCharacter) tssCharacter->AttemptEquipSecondary(); 
+}
+
+void ATssPlayerController::Input_Menu() {
+	
+	isMenuShowing = !isMenuShowing; 
+	
+	if (ATssHUD* tssHud = Cast<ATssHUD>(GetHUD())) {
+		
+		tssHud->ShowHidePlayerMenu(isMenuShowing); 
+	}
 }
 
 void ATssPlayerController::TssCharacter_AttributesAssigned() {

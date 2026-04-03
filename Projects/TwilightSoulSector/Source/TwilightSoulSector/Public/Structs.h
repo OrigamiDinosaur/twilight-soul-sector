@@ -16,3 +16,14 @@ struct TWILIGHTSOULSECTOR_API FTaggedAbility {
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TSubclassOf<UGameplayAbility> ability;
 };
+
+USTRUCT(BlueprintType)
+struct TWILIGHTSOULSECTOR_API FTaggedMagnitude {
+	GENERATED_BODY()
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FGameplayTag tag; 
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	float magnitude;
+};

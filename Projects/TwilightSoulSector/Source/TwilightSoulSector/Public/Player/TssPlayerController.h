@@ -42,6 +42,9 @@ protected:
 	TObjectPtr<UInputAction> equipSecondaryAction; 
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Player Controller | References")
+	TObjectPtr<UInputAction> menuAction; 
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Player Controller | References")
 	TObjectPtr<UCurveTable> expCurveTable;
 	
 	//-----------------------------------------------------------------------------------------
@@ -54,6 +57,7 @@ private:
 	TObjectPtr<ATssCharacter> tssCharacter; 
 	
 	bool isShiftKeyDown;
+	bool isMenuShowing; 
 
 	//-----------------------------------------------------------------------------------------
 	// Unreal Lifecycle:
@@ -89,6 +93,8 @@ private:
 	
 	void Input_EquipPrimaryPressed(); 
 	void Input_EquipSecondaryPressed(); 
+	
+	void Input_Menu(); 
 	
 	UFUNCTION()
 	void TssCharacter_AttributesAssigned(); 

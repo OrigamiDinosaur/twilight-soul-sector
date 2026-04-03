@@ -100,3 +100,25 @@ void UTssAbilitySystemComponent::ApplyDamageEffect(const TSubclassOf<UGameplayEf
 	spec->SetSetByCallerMagnitude(FTssGameplayTags::Get().Attributes_Meta_OutgoingDamage, damage);
 	ApplyGameplayEffectSpecToSelf(*spec); 
 }
+
+void UTssAbilitySystemComponent::ApplyMangnitudeByCallerEffect(const TSubclassOf<UGameplayEffect> effect, const FGameplayTag magnitudeEffect, const float magnitude) {
+	
+	const FGameplayEffectContextHandle contextHandle = MakeEffectContext();
+	const FGameplayEffectSpecHandle specHandle = MakeOutgoingSpec(effect, 1, contextHandle); 
+	FGameplayEffectSpec* spec = specHandle.Data.Get();
+	spec->SetSetByCallerMagnitude(magnitudeEffect, magnitude);
+	ApplyGameplayEffectSpecToSelf(*spec); 
+}
+
+void UTssAbilitySystemComponent::ApplyMagnitudesByCallerEffect(const TSubclassOf<UGameplayEffect> effect, TArray<FTaggedMagnitude> taggedMagnitudes) {
+	
+	const FGameplayEffectContextHandle contextHandle = MakeEffectContext();
+	const FGameplayEffectSpecHandle specHandle = MakeOutgoingSpec(effect, 1, contextHandle); 
+	FGameplayEffectSpec* spec = specHandle.Data.Get();
+	
+	for (FTaggedMagnitude taggedMagnitude : taggedMagnitudes) {
+		spec->SetSetByCallerMagnitude(taggedMagnitude.tag, taggedMagnitude.magnitude); 
+	}
+	
+	ApplyGameplayEffectSpecToSelf(*spec);
+}

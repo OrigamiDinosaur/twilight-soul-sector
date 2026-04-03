@@ -28,4 +28,6 @@ public:
 	
 	void ApplySimpleGameplayEffect(TSubclassOf<UGameplayEffect> effect, float level = 1.0f);
 	void ApplyDamageEffect(const TSubclassOf<UGameplayEffect> effect, const float damage, const float level = 1.0f);
+	void ApplyMangnitudeByCallerEffect(const TSubclassOf<UGameplayEffect> effect, const FGameplayTag magnitudeEffect, const float magnitude);
+	void ApplyMagnitudesByCallerEffect(const TSubclassOf<UGameplayEffect> effect, TArray<FTaggedMagnitude> taggedMagnitudes); 
 };

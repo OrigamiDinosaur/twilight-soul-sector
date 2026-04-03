@@ -34,6 +34,7 @@ void ATssCharacter::BeginPlay() {
 	
 	if (ExpUpdated.IsBound()) ExpUpdated.Broadcast(0.0f); 
 	if (LevelUpdated.IsBound()) LevelUpdated.Broadcast(characterLevel); 
+	if (AttributePointsUpdated.IsBound()) AttributePointsUpdated.Broadcast(0); 
 }
 
 void ATssCharacter::Tick(float DeltaSeconds) {
@@ -135,6 +136,25 @@ void ATssCharacter::Collect(const FGameplayTag collectionTag, const int magnitud
 	if (collectionTag == FTssGameplayTags::Get().Collectable_Exp) {
 		AddExp(magnitude);
 	}
+}
+
+void ATssCharacter::UpgradeAttribute(FGameplayTag attributeTag) {
+	if (numAttributePoints <= 0) return; 
+	
+	numAttributePoints--; 
+	
+	if (AttributePointsUpdated.IsBound()) AttributePointsUpdated.Broadcast(numAttributePoints); 
+	
+	TArray<FTaggedMagnitude> taggedMagnitudes; 
+	
+	for (FGameplayTag tag : attributeTags) {
+
+		const float attributeValue = tag.MatchesTagExact(attributeTag) ? 1 : 0; 
+		
+		taggedMagnitudes.Add(FTaggedMagnitude(tag, attributeValue)); 
+	}
+	
+	abilitySystemComponent->ApplyMagnitudesByCallerEffect(attributeChangeEffect, taggedMagnitudes); 
 }
 
 //-----------------------------------------------------------------------------------------
@@ -255,6 +275,9 @@ void ATssCharacter::LevelUp() {
 	
 	if (LevelUpdated.IsBound()) LevelUpdated.Broadcast(characterLevel); 
 	
-	LOG("Level Up!");
+	// increase our number of attribute points and tell our gui.
+	numAttributePoints++; 
+	
+	if (AttributePointsUpdated.IsBound()) AttributePointsUpdated.Broadcast(numAttributePoints); 	
 }
 

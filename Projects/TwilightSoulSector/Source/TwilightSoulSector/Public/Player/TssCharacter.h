@@ -30,6 +30,7 @@ public:
 	
 	FFloatDelegate ExpUpdated;
 	FIntDelegate LevelUpdated; 
+	FIntDelegate AttributePointsUpdated;
 	
 	//-----------------------------------------------------------------------------------------
 	// Inspector Variables:
@@ -45,6 +46,12 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | Defaults")
 	FGameplayTag defaultSecondaryAbilityTag;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | Attributes")
+	TSubclassOf<UGameplayEffect> attributeChangeEffect; 
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | Attributes")
+	TArray<FGameplayTag> attributeTags; 
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | Movement")
 	float walkSpeed; 
@@ -73,6 +80,8 @@ private:
 	FGameplayTag equippedSecondaryAbilityTag; 
 
 	bool isRunning;
+	
+	int numAttributePoints; 
 	
 	//-----------------------------------------------------------------------------------------
 	// Unreal Lifecycle:
@@ -109,8 +118,10 @@ public:
 	
 	void AttemptEquipPrimary();
 	void AttemptEquipSecondary(); 
-	
+		
 	void Collect(FGameplayTag collectionTag, int magnitude); 
+	
+	void UpgradeAttribute(FGameplayTag attributeTag); 
 	
 	//-----------------------------------------------------------------------------------------
 	// Protected Methods:
