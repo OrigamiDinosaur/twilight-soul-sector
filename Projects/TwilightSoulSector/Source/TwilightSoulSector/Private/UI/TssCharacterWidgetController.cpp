@@ -32,6 +32,14 @@ void UTssCharacterWidgetController::TssCharacter_AbilityEquipUnavailable() {
 	if (AbilityEquipUnavailable.IsBound()) AbilityEquipUnavailable.Broadcast();
 }
 
+void UTssCharacterWidgetController::TssCharacter_ExpUpdated(const float normalizedExp) {
+	if (ExpUpdated.IsBound()) ExpUpdated.Broadcast(normalizedExp); 
+}
+
+void UTssCharacterWidgetController::TssCharacter_LevelUpdated(const int level) {
+	if (LevelUpdated.IsBound()) LevelUpdated.Broadcast(level); 
+}
+
 //-----------------------------------------------------------------------------------------
 // Public Methods:
 //-----------------------------------------------------------------------------------------
@@ -50,5 +58,7 @@ void UTssCharacterWidgetController::BindCallbacksToDependencies() {
 		tssCharacter->SecondaryAbilityUnassigned.AddDynamic(this, &UTssCharacterWidgetController::TssCharacter_SecondaryAbilityUnassigned); 
 		tssCharacter->AbilityEquipAvailable.AddDynamic(this, &UTssCharacterWidgetController::TssCharacter_AbilityEquipAvailable);
 		tssCharacter->AbilityEquipUnavailable.AddDynamic(this, &UTssCharacterWidgetController::TssCharacter_AbilityEquipUnavailable);
+		tssCharacter->ExpUpdated.AddDynamic(this, &UTssCharacterWidgetController::TssCharacter_ExpUpdated);
+		tssCharacter->LevelUpdated.AddDynamic(this, &UTssCharacterWidgetController::TssCharacter_LevelUpdated); 
 	}
 }

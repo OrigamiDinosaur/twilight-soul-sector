@@ -28,6 +28,9 @@ public:
 	FActionDelegate AbilityEquipAvailable; 
 	FActionDelegate AbilityEquipUnavailable; 
 	
+	FFloatDelegate ExpUpdated;
+	FIntDelegate LevelUpdated; 
+	
 	//-----------------------------------------------------------------------------------------
 	// Inspector Variables:
 	//-----------------------------------------------------------------------------------------

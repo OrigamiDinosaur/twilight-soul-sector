@@ -35,6 +35,12 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FActionDelegate AbilityEquipUnavailable; 
 	
+	UPROPERTY(BlueprintAssignable)
+	FFloatDelegate ExpUpdated;
+	
+	UPROPERTY(BlueprintAssignable)
+	FIntDelegate LevelUpdated;
+	
 	//-----------------------------------------------------------------------------------------
 	// Private Fields:
 	//-----------------------------------------------------------------------------------------
@@ -75,6 +81,12 @@ private:
 	
 	UFUNCTION()
 	void TssCharacter_AbilityEquipUnavailable(); 
+	
+	UFUNCTION()
+	void TssCharacter_ExpUpdated(float normalizedExp);
+	
+	UFUNCTION()
+	void TssCharacter_LevelUpdated(int level); 
 	
 	//-----------------------------------------------------------------------------------------
 	// Public Methods:

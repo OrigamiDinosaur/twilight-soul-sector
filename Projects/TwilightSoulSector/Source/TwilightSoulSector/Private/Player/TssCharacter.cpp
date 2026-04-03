@@ -7,6 +7,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Debug/DebugLog.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/KismetMathLibrary.h"
 
 //-----------------------------------------------------------------------------------------
 // Unreal Lifecycle:
@@ -15,8 +16,7 @@
 
 void ATssCharacter::BeginPlay() {
 	Super::BeginPlay();
-	
-	
+		
 	animInstance = Cast<UTssCharacterAnimInstance>(GetMesh()->GetAnimInstance()); 
 	
 	if (!animInstance) {
@@ -31,6 +31,9 @@ void ATssCharacter::BeginPlay() {
 	for (const TObjectPtr<UTssAbilityInfo>& info : startingAbilities) {
 		EquipAbility(info); 
 	}
+	
+	if (ExpUpdated.IsBound()) ExpUpdated.Broadcast(0.0f); 
+	if (LevelUpdated.IsBound()) LevelUpdated.Broadcast(characterLevel); 
 }
 
 void ATssCharacter::Tick(float DeltaSeconds) {
@@ -217,19 +220,40 @@ void ATssCharacter::UpdateLocomotionAnimation() {
 
 void ATssCharacter::AddExp(const int expAmount) {
 
-	const int expThreshold = GetWorld()->GetSubsystem<UExperienceCalculator>()->GetThresholdForLevel(characterLevel); 
+	// todo: its technically possible we could get enough exp to level up twice and this doesn't handle this
+	// todo: figure out a better solution. 
 	
+	// cache our exp calculator.
+	const UExperienceCalculator* calculator = GetWorld()->GetSubsystem<UExperienceCalculator>();
+	
+	// get our exp threshold for our next level. 
+	int expThreshold = calculator->GetThresholdForLevel(characterLevel + 1); 
+	
+	// add our exp and see if we've levelled up. 
 	expTotal += expAmount; 
 		
 	if (expTotal >= expThreshold) {		
 		LevelUp();
-	}
+	}	
+	
+	// get our exp bar limits for calculating our progress bar. 
+	// we re-grab the exp threshold as we m,ay have levelled. 
+	const int previousExpThreshold = calculator->GetThresholdForLevel(characterLevel); 
+	expThreshold = calculator->GetThresholdForLevel(characterLevel + 1);
+
+	const float normalizedExperience = UKismetMathLibrary::NormalizeToRange(expTotal, previousExpThreshold, expThreshold);
+
+	// tell the gui to update our progress bar. 
+	if (ExpUpdated.IsBound()) ExpUpdated.Broadcast(normalizedExperience);
 }
 
 void ATssCharacter::LevelUp() {
 	
+	// increase our level, and update our exp calculator and gui. 
 	characterLevel++; 	
 	GetWorld()->GetSubsystem<UExperienceCalculator>()->SetPlayerLevel(characterLevel); 
+	
+	if (LevelUpdated.IsBound()) LevelUpdated.Broadcast(characterLevel); 
 	
 	LOG("Level Up!");
 }

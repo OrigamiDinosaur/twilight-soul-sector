@@ -34,5 +34,5 @@ int UExperienceCalculator::GetExpReward(const int enemyLevel) const {
 
 int UExperienceCalculator::GetThresholdForLevel(const int level) const {
 	
-	return expTable->FindCurve(THRESHOLDS_TABLE, FString())->Eval(level + 1); 
+	return expTable->FindCurve(THRESHOLDS_TABLE, FString())->Eval(level); 
 }

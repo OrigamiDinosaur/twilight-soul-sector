@@ -23,7 +23,7 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Tss HUD | References")
 	TSubclassOf<UTssWidgetController> overlayWidgetControllerAsset; 
-	
+			
 	//-----------------------------------------------------------------------------------------
 	// Private Fields:
 	//-----------------------------------------------------------------------------------------
