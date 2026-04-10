@@ -7,6 +7,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Debug/DebugLog.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 
 //-----------------------------------------------------------------------------------------
@@ -100,6 +101,8 @@ void ATssCharacter::DisableAbilityEquip() {
 
 void ATssCharacter::AttemptEquipPrimary() {
 	if (equippableAbility == nullptr || equippableAbility->abilityTag == equippedPrimaryAbilityTag || !abilitySystemComponent->HasMatchingGameplayTag(FTssGameplayTags::Get().State_Player_Equip)) return; 
+			
+	if (equipSfx) UGameplayStatics::PlaySound2D(this, equipSfx); 
 	
 	abilitySystemComponent->RemoveCharacterAbility(equippedPrimaryAbilityTag); 
 	
@@ -117,6 +120,8 @@ void ATssCharacter::AttemptEquipPrimary() {
 
 void ATssCharacter::AttemptEquipSecondary() {
 	if (equippableAbility == nullptr || equippableAbility->abilityTag == equippedSecondaryAbilityTag || !abilitySystemComponent->HasMatchingGameplayTag(FTssGameplayTags::Get().State_Player_Equip)) return; 
+		
+	if (equipSfx) UGameplayStatics::PlaySound2D(this, equipSfx); 
 	
 	abilitySystemComponent->RemoveCharacterAbility(equippedSecondaryAbilityTag); 
 	
@@ -274,6 +279,8 @@ void ATssCharacter::LevelUp() {
 	GetWorld()->GetSubsystem<UExperienceCalculator>()->SetPlayerLevel(characterLevel); 
 	
 	if (LevelUpdated.IsBound()) LevelUpdated.Broadcast(characterLevel); 
+		
+	if (levelUpSfx) UGameplayStatics::PlaySound2D(this, levelUpSfx); 
 	
 	// increase our number of attribute points and tell our gui.
 	numAttributePoints++; 

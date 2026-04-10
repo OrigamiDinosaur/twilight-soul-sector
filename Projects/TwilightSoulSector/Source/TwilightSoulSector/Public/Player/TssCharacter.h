@@ -62,6 +62,12 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | Sockets")
 	TArray<FName> sockets; 
 	
+	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | Sfx")
+	USoundBase* equipSfx;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | Sfx")
+	USoundBase* levelUpSfx;
+	
 	//-----------------------------------------------------------------------------------------
 	// Private Fields:
 	//-----------------------------------------------------------------------------------------

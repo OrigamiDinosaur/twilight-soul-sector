@@ -10,16 +10,14 @@ This is a project built on the Gameplay Ability System (GAS). I have chosen to d
 
 ## Current State
 
-I have just completed Stage 1 of my roadmap. 
+I have just completed Stage 2 of my roadmap. 
 
-This entailed creating the foundation for the other stages, primarily:
-- Basic Locomotion
-- Vital Attributes (Health, Mana, Stamina)
-- Basic Abilities	 
-- A Dummy to attack
-- Functionality to swap out abilities
-- Basic HUD
-- Consumables 
+This entailed creating tying attributes into the gameplay. 
+- Primary attributes are used to derive Vital Attributes & Derived Attributes
+- Attacks now scale based on Derived Attributes. 
+- Dummies drop EXP 
+- Exp cause level ups.
+- Player can spend attribute points in a menu. 
 
 ## Roadmap 
 

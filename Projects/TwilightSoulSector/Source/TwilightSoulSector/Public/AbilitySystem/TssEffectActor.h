@@ -63,6 +63,9 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Applied Effects")
 	bool destroyOnEffectApplication; 
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
+	USoundBase* onApplyEffectCue; 
 
 	//-----------------------------------------------------------------------------------------
     // Private Fields:

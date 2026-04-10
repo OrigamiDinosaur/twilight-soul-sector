@@ -6,6 +6,7 @@
 #include "AbilitySystemComponent.h"
 #include "GameplayEffect.h"
 #include "Debug/DebugLog.h"
+#include "Kismet/GameplayStatics.h"
 
 //-----------------------------------------------------------------------------------------
 // Unreal Lifecycle:
@@ -56,6 +57,8 @@ void ATssEffectActor::ApplyEffectToTarget(AActor* targetActor, const TSubclassOf
 	// use the spec handle to apply the effect. 
 	FActiveGameplayEffectHandle activeEffectHandle = asc->ApplyGameplayEffectSpecToSelf(*effectSpecHandle.Data.Get());
 
+	if (onApplyEffectCue) UGameplayStatics::PlaySound2D(this, onApplyEffectCue); 
+	
 	const bool isInfinite = effectSpecHandle.Data.Get()->Def.Get()->DurationPolicy == EGameplayEffectDurationType::Infinite;
 
 	if (isInfinite && infiniteEffectRemovalPolicy == EEffectRemovePolicy::RemoveOnEndOverlap) {
