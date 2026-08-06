@@ -27,10 +27,10 @@ protected:
 protected: 
 	
 	UFUNCTION(BlueprintCallable)
-	void SpawnProjectile(const FVector& spawnLocation, const FRotator spawnRotation); 
+	void SpawnProjectile(const FVector& spawnLocation, const FRotator spawnRotation, bool isPlayer = true); 
 	
 	UFUNCTION(BlueprintCallable)
-	void SpawnHomingProjectile(const FVector& spawnLocation, const FRotator spawnRotation, USceneComponent* homingTarget); 
+	void SpawnHomingProjectile(const FVector& spawnLocation, const FRotator spawnRotation, USceneComponent* homingTarget, bool isPlayer = true); 
 	
 	UFUNCTION(BlueprintCallable)
 	void FindTargetWithinRadiusAndSpawnHomingProjectile(const FVector& spawnLocation, const FRotator spawnRotation, float targetRadius);

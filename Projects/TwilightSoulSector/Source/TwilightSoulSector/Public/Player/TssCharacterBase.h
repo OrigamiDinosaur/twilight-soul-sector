@@ -69,7 +69,10 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character Base | References")
 	TArray<FTaggedMontage> abilityMontages;
-
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Tss Character Base | Sockets")
+	TArray<FName> sockets; 
+		
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character Base | Attributes")
 	int32 characterLevel = 1;
 	

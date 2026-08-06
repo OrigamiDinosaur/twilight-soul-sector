@@ -4,11 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "TssDummyAnimInstance.h"
-#include "Player/TssCharacterBase.h"
+#include "TssEnemyBase.h"
 #include "TssDummy.generated.h"
 
 UCLASS()
-class TWILIGHTSOULSECTOR_API ATssDummy : public ATssCharacterBase {
+class TWILIGHTSOULSECTOR_API ATssDummy : public ATssEnemyBase {
 	GENERATED_BODY()
 	
 	//-----------------------------------------------------------------------------------------

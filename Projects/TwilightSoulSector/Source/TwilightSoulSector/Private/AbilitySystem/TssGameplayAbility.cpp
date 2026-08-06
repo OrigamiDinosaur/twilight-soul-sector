@@ -34,7 +34,7 @@ FTaggedMontage UTssGameplayAbility::GetAbilityMontage() {
 	
 	for (FGameplayTag tag : spec->GetDynamicSpecSourceTags()) {
 				
-		if (tag.MatchesTag(FTssGameplayTags::Get().Montage)) {
+		if (tag.MatchesTag(FTssGameplayTags::Get().Montage)) {			
 			return GetCharacterBase()->GetAbilityMontageByTag(tag); 
 		}
 	}

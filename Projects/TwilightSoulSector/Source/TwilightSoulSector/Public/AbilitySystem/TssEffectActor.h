@@ -73,6 +73,7 @@ protected:
 
 private:
 
+	UPROPERTY()
 	TMap<FActiveGameplayEffectHandle, UAbilitySystemComponent*> activeEffectHandles;
 	
 	//-----------------------------------------------------------------------------------------

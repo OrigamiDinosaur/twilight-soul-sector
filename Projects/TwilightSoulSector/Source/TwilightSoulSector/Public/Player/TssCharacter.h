@@ -59,9 +59,6 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | Movement")
 	float runSpeed; 
 	
-	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | Sockets")
-	TArray<FName> sockets; 
-	
 	UPROPERTY(EditDefaultsOnly, Category = "Tss Character | Sfx")
 	USoundBase* equipSfx;
 	

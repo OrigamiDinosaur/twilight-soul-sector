@@ -47,6 +47,18 @@ void ATssProjectile::SetHomingTarget(TObjectPtr<USceneComponent> target) {
 	projectileMovementComponent->bIsHomingProjectile = true;
 }
 
+void ATssProjectile::SetCollisionTarget(bool shouldHitPlayer) {
+	
+	if (shouldHitPlayer) {
+		collision->SetCollisionResponseToChannel(ECC_Player, ECR_Overlap);
+	}
+	else {
+		collision->SetCollisionResponseToChannel(ECC_Enemy, ECR_Overlap); 
+	}
+	
+	
+}
+
 //-----------------------------------------------------------------------------------------
 // Event Handlers:
 //-----------------------------------------------------------------------------------------

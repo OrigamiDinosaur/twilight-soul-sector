@@ -8,7 +8,7 @@
 // Blueprint Callable Methods:
 //-----------------------------------------------------------------------------------------
 
-void UTssProjectileGameplayAbility::SpawnProjectile(const FVector& spawnLocation, const FRotator spawnRotation) {
+void UTssProjectileGameplayAbility::SpawnProjectile(const FVector& spawnLocation, const FRotator spawnRotation, bool isPlayer) {
 	
 	FTransform spawnTransform; 
 	spawnTransform.SetLocation(spawnLocation);
@@ -16,10 +16,11 @@ void UTssProjectileGameplayAbility::SpawnProjectile(const FVector& spawnLocation
 	
 	TObjectPtr<ATssProjectile> projectile = GetWorld()->SpawnActorDeferred<ATssProjectile>(projectileAsset, spawnTransform, GetOwningActorFromActorInfo(), Cast<APawn>(GetOwningActorFromActorInfo()), ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
 	
+	projectile->SetCollisionTarget(!isPlayer); 
 	projectile->FinishSpawning(spawnTransform); 	
 }
 
-void UTssProjectileGameplayAbility::SpawnHomingProjectile(const FVector& spawnLocation, const FRotator spawnRotation, USceneComponent* homingTarget) {
+void UTssProjectileGameplayAbility::SpawnHomingProjectile(const FVector& spawnLocation, const FRotator spawnRotation, USceneComponent* homingTarget, bool isPlayer) {
 	
 	FTransform spawnTransform; 
 	spawnTransform.SetLocation(spawnLocation);
@@ -27,6 +28,7 @@ void UTssProjectileGameplayAbility::SpawnHomingProjectile(const FVector& spawnLo
 	
 	TObjectPtr<ATssProjectile> projectile = GetWorld()->SpawnActorDeferred<ATssProjectile>(projectileAsset, spawnTransform, GetOwningActorFromActorInfo(), Cast<APawn>(GetOwningActorFromActorInfo()), ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
 	projectile->SetHomingTarget(homingTarget); 
+	projectile->SetCollisionTarget(!isPlayer); 
 	
 	projectile->FinishSpawning(spawnTransform); 
 }

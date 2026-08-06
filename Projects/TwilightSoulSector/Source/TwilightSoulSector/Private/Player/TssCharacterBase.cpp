@@ -64,7 +64,10 @@ FVector ATssCharacterBase::GetSocketByIndex_Implementation(int socketIndex) {
 FTaggedMontage ATssCharacterBase::GetAbilityMontageByTag(const FGameplayTag& montageTag) {
 
 	for (FTaggedMontage montage : abilityMontages) {
-		if (montage.montageTag == montageTag) return montage;
+		
+		if (montage.montageTag == montageTag) {						
+			return montage;
+		}
 	}
 
 	return FTaggedMontage(); 

@@ -81,6 +81,7 @@ public:
 public: 
 	
 	void SetHomingTarget(TObjectPtr<USceneComponent> target); 
+	void SetCollisionTarget(bool shouldHitPlayer); 
 	
 	//-----------------------------------------------------------------------------------------
 	// Event Handlers:
