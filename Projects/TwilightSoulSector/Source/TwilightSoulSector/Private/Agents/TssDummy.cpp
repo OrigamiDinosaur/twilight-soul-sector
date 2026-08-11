@@ -12,21 +12,5 @@
 void ATssDummy::BeginPlay() {
 	Super::BeginPlay();
 	
-	animInstance = Cast<UTssDummyAnimInstance>(GetMesh()->GetAnimInstance()); 
 	
-	if (!animInstance) {
-		LOGERROR("AnimInstance not found in TssDummy");
-	}
-}
-
-//-----------------------------------------------------------------------------------------
-// Protected Methods:
-//-----------------------------------------------------------------------------------------
-
-void ATssDummy::HandleDeath_Implementation() {	
-	if (animInstance) animInstance->SetShouldDie(true); 
-	
-	SpawnExp();
-	
-	SetActorEnableCollision(false); 
 }

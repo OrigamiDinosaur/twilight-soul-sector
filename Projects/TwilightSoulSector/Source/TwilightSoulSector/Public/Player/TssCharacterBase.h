@@ -96,6 +96,7 @@ protected:
 	
 	int expTotal;  
 	
+	bool isHit; 
 	bool isDead; 
 	
 	//-----------------------------------------------------------------------------------------
@@ -113,6 +114,15 @@ protected:
 public:
 
 	virtual void Tick(float DeltaTime) override;
+	
+	//-----------------------------------------------------------------------------------------
+	// Events:
+	//-----------------------------------------------------------------------------------------
+	
+private:
+	
+	UFUNCTION()
+	void AbilitySystemComponent_HitReactTagChanged(const FGameplayTag callbackTag, int32 newCount);
 	
 	//-----------------------------------------------------------------------------------------
 	// Getters / Setters:
@@ -151,6 +161,8 @@ protected:
 	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void HandleDeath(); 
+	
+	virtual void HandleIsHit() {} 
 	
 	void ApplyEffectToSelf(const TSubclassOf<UGameplayEffect> gameplayEffectClass, const float level = 1);
 		

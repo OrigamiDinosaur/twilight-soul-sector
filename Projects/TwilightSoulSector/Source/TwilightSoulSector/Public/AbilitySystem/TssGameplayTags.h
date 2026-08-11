@@ -68,6 +68,7 @@ public:
 	// State ----------------------------------------------------------------------------------
 
 	FGameplayTag State_Player_Equip; 
+	FGameplayTag State_Character_Dead;
 	
 	// Collectables----------------------------------------------------------------------------
 	

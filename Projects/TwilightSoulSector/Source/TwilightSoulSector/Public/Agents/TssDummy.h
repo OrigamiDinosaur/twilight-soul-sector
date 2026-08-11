@@ -10,16 +10,7 @@
 UCLASS()
 class TWILIGHTSOULSECTOR_API ATssDummy : public ATssEnemyBase {
 	GENERATED_BODY()
-	
-	//-----------------------------------------------------------------------------------------
-	// Private Fields:
-	//-----------------------------------------------------------------------------------------
-	
-private:
-	
-	UPROPERTY(Transient)
-	TObjectPtr<UTssDummyAnimInstance> animInstance;
-	
+		
 	//-----------------------------------------------------------------------------------------
 	// Unreal Lifecycle:
 	//-----------------------------------------------------------------------------------------
@@ -28,11 +19,4 @@ protected:
 	
 	virtual void BeginPlay() override;
 	
-	//-----------------------------------------------------------------------------------------
-	// Protected Methods:
-	//-----------------------------------------------------------------------------------------
-	
-protected:
-	
-	virtual void HandleDeath_Implementation() override;
 };

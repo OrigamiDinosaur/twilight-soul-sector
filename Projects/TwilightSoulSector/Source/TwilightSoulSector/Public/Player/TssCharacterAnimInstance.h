@@ -28,6 +28,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Anim | Locomotion")
 	float locoMaxInfluence = 100.0f;
 	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Anim | Death")
+	bool shouldDie; 
+	
 	//-----------------------------------------------------------------------------------------
 	// Public Methods:
 	//-----------------------------------------------------------------------------------------
@@ -36,4 +39,5 @@ public:
 	
 	void SetShouldMove(const bool inShouldMove) { shouldMove = inShouldMove; }
 	void SetLocomotion(float horizontal, float vertical); 
+	void SetShouldDie(const bool inShouldDie) { shouldDie = inShouldDie; }
 };

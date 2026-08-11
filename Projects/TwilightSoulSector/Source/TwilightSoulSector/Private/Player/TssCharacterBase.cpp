@@ -3,6 +3,7 @@
 #include "Player/TssCharacterBase.h"
 
 #include "AbilitySystem/ExperienceCalculator.h"
+#include "AbilitySystem/TssGameplayTags.h"
 #include "Components/CapsuleComponent.h"
 #include "Debug/DebugLog.h"
 #include "Kismet/KismetSystemLibrary.h"
@@ -35,10 +36,22 @@ void ATssCharacterBase::BeginPlay() {
 		
 		if (AttributesAssigned.IsBound()) AttributesAssigned.Broadcast(); 
 	}
+	
+	abilitySystemComponent->RegisterGameplayTagEvent(FTssGameplayTags::Get().Abilities_Shared_HitReact, EGameplayTagEventType::NewOrRemoved).AddUObject(this, &ATssCharacterBase::AbilitySystemComponent_HitReactTagChanged);		
 }
 
 void ATssCharacterBase::Tick(float DeltaTime) {
 	Super::Tick(DeltaTime);
+}
+
+//-----------------------------------------------------------------------------------------
+// Events:
+//-----------------------------------------------------------------------------------------
+
+void ATssCharacterBase::AbilitySystemComponent_HitReactTagChanged(const FGameplayTag callbackTag, int32 newCount) {
+	isHit = newCount > 0; 
+	
+	HandleIsHit(); 
 }
 
 //-----------------------------------------------------------------------------------------
@@ -78,6 +91,11 @@ FVector ATssCharacterBase::GetFacingDirection() {
 }
 
 void ATssCharacterBase::HandleDeath_Implementation() {
+	
+	FGameplayTagContainer tagContainer;
+	tagContainer.AddTag(FTssGameplayTags::Get().State_Character_Dead);
+	abilitySystemComponent->TryActivateAbilitiesByTag(tagContainer); 
+	
 	SpawnExp();
 }
 
@@ -100,6 +118,7 @@ void ATssCharacterBase::ApplyEffectToSelf(const TSubclassOf<UGameplayEffect> gam
 //-----------------------------------------------------------------------------------------
 
 void ATssCharacterBase::SpawnExp() {
+	if (numExpShardsToDrop == 0) return; 
 	
 	UWorld* world = GetWorld();
 	const float degreesPerTurn = 360.0f / numExpShardsToDrop;

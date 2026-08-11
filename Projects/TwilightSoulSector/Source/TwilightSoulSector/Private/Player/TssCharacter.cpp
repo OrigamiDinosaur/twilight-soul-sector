@@ -76,7 +76,8 @@ void ATssCharacter::SecondaryReleased() const {
 }
 
 void ATssCharacter::FaceTarget(const FVector& facingTarget) {
-
+	if (isDead) return; 
+	
 	const FVector actorLocation = GetActorLocation();
 	FVector adjustedFacingTarget = facingTarget; 
 	adjustedFacingTarget.Z = actorLocation.Z;
@@ -172,7 +173,14 @@ FVector ATssCharacter::GetSocketByIndex_Implementation(const int socketIndex) {
 
 void ATssCharacter::HandleDeath_Implementation() {
 	Super::HandleDeath_Implementation();
+	
+	isDead = true; 
+	
+	if (animInstance) animInstance->SetShouldDie(true); 
+		
+	SetActorEnableCollision(false); 
 }
+
 
 //-----------------------------------------------------------------------------------------
 // Private Methods:

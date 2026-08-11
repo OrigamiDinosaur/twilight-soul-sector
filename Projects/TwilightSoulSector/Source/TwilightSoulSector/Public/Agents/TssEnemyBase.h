@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "TssAIController.h"
+#include "TssDummyAnimInstance.h"
 #include "BehaviorTree/BehaviorTree.h"
 #include "AbilitySystem/TssAbilityInfo.h"
 #include "Player/TssCharacterBase.h"
@@ -22,8 +23,16 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enemy Base | Behaviours")
 	TObjectPtr<UBehaviorTree> behaviourTree; 
 	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enemy Base | Behaviours")
+	FName hitValueName;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enemy Base | Behaviours")
+	FName deadValueName;
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enemy Base | Abilities")
 	TArray<TObjectPtr<UTssAbilityInfo>> enemyAbilities;
+	
+
 	
 	//-----------------------------------------------------------------------------------------
 	// Protected Fields:
@@ -33,6 +42,9 @@ protected:
 	
 	UPROPERTY()
 	TObjectPtr<ATssAIController> aiController; 
+	
+	UPROPERTY(Transient)
+	TObjectPtr<UTssDummyAnimInstance> animInstance;
 	
 	UPROPERTY(BlueprintReadOnly, Category = "Enemy Base")
 	TObjectPtr<UBlackboardComponent> blackboardComponent;
@@ -61,6 +73,8 @@ protected:
 protected:
 	
 	virtual FVector GetSocketByIndex_Implementation(int socketIndex) override; 
+	virtual void HandleDeath_Implementation() override;
+	virtual void HandleIsHit() override;
 	
 	//-----------------------------------------------------------------------------------------
 	// Private Methods:

@@ -66,6 +66,7 @@ void FTssGameplayTags::InitializeGameplayTags() {
 	// ---------- State -----------------------
 	
 	instance.State_Player_Equip = tm.AddNativeGameplayTag(FName("State.Player.Equip")); 
+	instance.State_Character_Dead = tm.AddNativeGameplayTag(FName("State.Character.Dead")); 
 	
 	// ---------- Collectable ------------------
 	

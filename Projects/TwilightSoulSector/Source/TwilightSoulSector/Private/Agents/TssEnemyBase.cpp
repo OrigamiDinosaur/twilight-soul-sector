@@ -3,6 +3,7 @@
 #include "Agents/TssEnemyBase.h"
 
 #include "AbilitySystem/TssGameplayTags.h"
+#include "Agents/TssDummyAnimInstance.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Debug/DebugLog.h"
 
@@ -32,6 +33,12 @@ void ATssEnemyBase::PossessedBy(AController* NewController) {
 		aiController->RunBehaviorTree(behaviourTree); 
 	}	
 	
+	animInstance = Cast<UTssDummyAnimInstance>(GetMesh()->GetAnimInstance()); 
+	
+	if (!animInstance) {
+		LOGERROR("AnimInstance not found in TssDummy");
+	}
+	
 	for (const TObjectPtr<UTssAbilityInfo>& info : enemyAbilities) {
 		EquipAbility(info);
 	}
@@ -43,6 +50,21 @@ void ATssEnemyBase::PossessedBy(AController* NewController) {
 
 FVector ATssEnemyBase::GetSocketByIndex_Implementation(const int socketIndex) {
 	return GetMesh()->GetSocketLocation(sockets[socketIndex]); 
+}
+
+void ATssEnemyBase::HandleDeath_Implementation() {
+	if (animInstance) animInstance->SetShouldDie(true); 
+	
+	aiController->GetBlackboardComponent()->SetValueAsBool(deadValueName, true); 
+	
+	SpawnExp();
+	
+	SetActorEnableCollision(false); 
+}
+
+void ATssEnemyBase::HandleIsHit() {
+	
+	aiController->GetBlackboardComponent()->SetValueAsBool(hitValueName, isHit); 
 }
 
 //-----------------------------------------------------------------------------------------
