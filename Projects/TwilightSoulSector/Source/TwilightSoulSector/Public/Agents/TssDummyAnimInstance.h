@@ -17,6 +17,9 @@ class TWILIGHTSOULSECTOR_API UTssDummyAnimInstance : public UAnimInstance {
 protected:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Animation")
+	float locomotionSpeed;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Animation")
 	bool shouldDie; 
 	
 	//-----------------------------------------------------------------------------------------
@@ -26,4 +29,5 @@ protected:
 public: 
 	
 	void SetShouldDie(const bool inShouldDie) { shouldDie = inShouldDie; }
+	void SetLocomotionSpeed(const float speed) { locomotionSpeed = speed; }
 };

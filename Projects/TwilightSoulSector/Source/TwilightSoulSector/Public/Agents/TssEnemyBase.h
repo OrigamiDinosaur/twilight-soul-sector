@@ -56,6 +56,7 @@ protected:
 public: 
 	
 	virtual void PossessedBy(AController* NewController) override;
+	virtual void Tick(float DeltaSeconds) override;
 	
 	//-----------------------------------------------------------------------------------------
 	// Blueprint Implemented Events:

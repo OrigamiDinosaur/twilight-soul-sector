@@ -6,6 +6,9 @@
 #include "Agents/TssDummyAnimInstance.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Debug/DebugLog.h"
+#include "GameFramework/PawnMovementComponent.h"
+#include "Kismet/KismetMathLibrary.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 //-----------------------------------------------------------------------------------------
 // Unreal Lifecycle:
@@ -42,6 +45,18 @@ void ATssEnemyBase::PossessedBy(AController* NewController) {
 	for (const TObjectPtr<UTssAbilityInfo>& info : enemyAbilities) {
 		EquipAbility(info);
 	}
+}
+
+void ATssEnemyBase::Tick(float DeltaSeconds) {
+	Super::Tick(DeltaSeconds);
+	
+	if (isDead) return; 
+	
+	const float currentSpeed = GetMovementComponent()->Velocity.Length(); 
+	
+	const float normalizedSpeed = UKismetMathLibrary::NormalizeToRange(currentSpeed, 0.0f, GetMovementComponent()->GetMaxSpeed());
+	
+	if (animInstance) animInstance->SetLocomotionSpeed(normalizedSpeed); 
 }
 
 //-----------------------------------------------------------------------------------------
