@@ -33,4 +33,7 @@ protected:
 	
 	UFUNCTION(BlueprintCallable)
 	void ApplyDamageInRadius(float damage); 
+	
+	UFUNCTION(BlueprintCallable)
+	void ApplyRadiusDamageAtPoint(float damage, FVector point); 
 };

@@ -48,3 +48,24 @@ void UTssAreaGameplayAbility::ApplyDamageInRadius(const float damage) {
 		}
 	}
 }
+
+void UTssAreaGameplayAbility::ApplyRadiusDamageAtPoint(float damage, FVector point) {
+
+	TArray<AActor*> actorsToIgnore;
+	actorsToIgnore.Add(GetAvatarActorFromActorInfo());
+	
+	TArray<AActor*> overlappingActors;
+	if (GetLiveCharactersWithinRadius(overlappingActors, actorsToIgnore, radius, point)) {
+		
+		for (AActor* actor : overlappingActors) {
+			
+			if (UAbilitySystemComponent* asc = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(actor)) {
+				
+				if (UTssAbilitySystemComponent* tssAsc = Cast<UTssAbilitySystemComponent>(asc)) {
+					
+					tssAsc->ApplyDamageEffect(effectToApply, damage); 
+				}
+			}
+		}
+	}
+}

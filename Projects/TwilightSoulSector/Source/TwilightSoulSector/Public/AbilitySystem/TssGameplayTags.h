@@ -65,6 +65,8 @@ public:
 	
 	FGameplayTag Montage_Area; 
 	
+	FGameplayTag Montage_Melee_Primary;
+	
 	// State ----------------------------------------------------------------------------------
 
 	FGameplayTag State_Player_Equip; 

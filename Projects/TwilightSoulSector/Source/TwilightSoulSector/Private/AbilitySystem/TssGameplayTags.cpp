@@ -63,6 +63,8 @@ void FTssGameplayTags::InitializeGameplayTags() {
 	
 	instance.Montage_Area = tm.AddNativeGameplayTag(FName("Montage.Area")); 
 	
+	instance.Montage_Melee_Primary = tm.AddNativeGameplayTag(FName("Montage.Melee.Primary"));
+	
 	// ---------- State -----------------------
 	
 	instance.State_Player_Equip = tm.AddNativeGameplayTag(FName("State.Player.Equip")); 
