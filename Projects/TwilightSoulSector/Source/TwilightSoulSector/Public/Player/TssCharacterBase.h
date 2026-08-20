@@ -165,7 +165,9 @@ protected:
 	virtual void HandleIsHit() {} 
 	
 	void ApplyEffectToSelf(const TSubclassOf<UGameplayEffect> gameplayEffectClass, const float level = 1);
-		
+			
+	FVector GetSpawnPosition(float spawnMin, float spawnMax, float rotateAngle);
+			
 	void SpawnExp(); 
 	
 };

@@ -113,6 +113,17 @@ void ATssCharacterBase::ApplyEffectToSelf(const TSubclassOf<UGameplayEffect> gam
 	abilitySystemComponent->ApplyGameplayEffectSpecToSelf(*specHandle.Data.Get()); 
 }
 
+FVector ATssCharacterBase::GetSpawnPosition(float spawnMin, float spawnMax, float rotateAngle) {
+	
+	const float spawnDistance = FMath::RandRange(spawnMin, spawnMax);
+	const FVector forwardVector = GetActorForwardVector() * spawnDistance;
+
+	const FVector rotatedForwardVector = forwardVector.RotateAngleAxis(rotateAngle, FVector::UpVector);
+	const FVector spawnLocation = GetMesh()->GetComponentLocation() + rotatedForwardVector;
+	
+	return spawnLocation;
+}
+
 //-----------------------------------------------------------------------------------------
 // Private Methods:
 //-----------------------------------------------------------------------------------------
@@ -127,13 +138,8 @@ void ATssCharacterBase::SpawnExp() {
 	const int expPerDrop = totalExp / numExpShardsToDrop; 
 		
 	for (int i = 0; i < numExpShardsToDrop; i++) {
-		
-		const float spawnDistance = FMath::RandRange(spawnDistanceMin, spawnDistanceMax);
-		FVector forwardVector = GetActorForwardVector() * spawnDistance; 
-		
-		FVector rotatedForwardVector = forwardVector.RotateAngleAxis(degreesPerTurn * i, FVector::UpVector);
-		
-		FVector spawnLocation = GetMesh()->GetComponentLocation() + rotatedForwardVector;
+				
+		FVector spawnLocation = GetSpawnPosition(spawnDistanceMin, spawnDistanceMax, degreesPerTurn * i);
 		FRotator spawnRotation = FRotator(0.0f); 
 		
 		ACollectable* expDrop = world->SpawnActor<ACollectable>(expDropAsset, spawnLocation, spawnRotation); 

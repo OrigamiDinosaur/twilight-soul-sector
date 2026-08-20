@@ -45,6 +45,14 @@ void ATssEnemyBase::PossessedBy(AController* NewController) {
 	for (const TObjectPtr<UTssAbilityInfo>& info : enemyAbilities) {
 		EquipAbility(info);
 	}
+	
+	totalSpawnWeight = 0; 
+		
+	for (FLoot& loot : lootDrops) {
+			
+		totalSpawnWeight += loot.spawnWeight;		
+		loot.adjustedSpawnWeight = totalSpawnWeight;
+	}
 }
 
 void ATssEnemyBase::Tick(float DeltaSeconds) {
@@ -74,12 +82,46 @@ void ATssEnemyBase::HandleDeath_Implementation() {
 	
 	SpawnExp();
 	
+	SpawnLoot();
+	
 	SetActorEnableCollision(false); 
 }
 
 void ATssEnemyBase::HandleIsHit() {
 	
 	aiController->GetBlackboardComponent()->SetValueAsBool(hitValueName, isHit); 
+}
+
+void ATssEnemyBase::SpawnLoot() {
+	if (lootDropChance == 0 || lootDrops.Num() == 0) return;
+
+	const float lootDropAttempt = FMath::RandRange(0.0f, 100.0f);
+
+	if (lootDropAttempt < lootDropChance) {
+							
+		const float lootSpawnRand = FMath::RandRange(0.0f, totalSpawnWeight); 
+		
+		int spawnIndex = -1; 
+		
+		for (int i = 0; i < lootDrops.Num(); i++) {
+			
+			if (lootSpawnRand < lootDrops[i].adjustedSpawnWeight) {
+				spawnIndex = i; 
+				break; 
+			}
+		}
+		
+		if (spawnIndex != -1) {
+			
+			const float spawnDegree = FMath::RandRange(0.0f, 360.0f); 
+			
+			FVector spawnLocation = GetSpawnPosition(spawnDistanceMin, spawnDistanceMax, spawnDegree);
+			FRotator spawnRotation = FRotator(0.0f); 
+			
+			AActor* lootDrop = GetWorld()->SpawnActor<AActor>(lootDrops[spawnIndex].lootAsset, spawnLocation, spawnRotation);
+			
+		}
+	}
 }
 
 //-----------------------------------------------------------------------------------------

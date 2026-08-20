@@ -10,6 +10,20 @@
 #include "Player/TssCharacterBase.h"
 #include "TssEnemyBase.generated.h"
 
+USTRUCT(BlueprintType)
+struct FLoot {
+	
+	GENERATED_BODY()
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSubclassOf<AActor> lootAsset;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	float spawnWeight;
+	
+	float adjustedSpawnWeight;
+};
+
 UCLASS()
 class TWILIGHTSOULSECTOR_API ATssEnemyBase : public ATssCharacterBase {
 	GENERATED_BODY()
@@ -32,7 +46,11 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enemy Base | Abilities")
 	TArray<TObjectPtr<UTssAbilityInfo>> enemyAbilities;
 	
-
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enemy Base | Loot")
+	float lootDropChance;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enemy Base | Loot")
+	TArray<FLoot> lootDrops;
 	
 	//-----------------------------------------------------------------------------------------
 	// Protected Fields:
@@ -48,6 +66,14 @@ protected:
 	
 	UPROPERTY(BlueprintReadOnly, Category = "Enemy Base")
 	TObjectPtr<UBlackboardComponent> blackboardComponent;
+	
+	//-----------------------------------------------------------------------------------------
+	// Private Fields:
+	//-----------------------------------------------------------------------------------------
+	
+private:
+	
+	float totalSpawnWeight;
 	
 	//-----------------------------------------------------------------------------------------
 	// Unreal Lifecycle:
@@ -76,6 +102,8 @@ protected:
 	virtual FVector GetSocketByIndex_Implementation(int socketIndex) override; 
 	virtual void HandleDeath_Implementation() override;
 	virtual void HandleIsHit() override;
+	
+	void SpawnLoot(); 
 	
 	//-----------------------------------------------------------------------------------------
 	// Private Methods:

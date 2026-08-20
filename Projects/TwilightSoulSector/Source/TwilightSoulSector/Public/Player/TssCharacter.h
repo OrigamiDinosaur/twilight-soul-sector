@@ -134,7 +134,7 @@ protected:
 	
 	virtual FVector GetSocketByIndex_Implementation(int socketIndex) override; 
 	virtual void HandleDeath_Implementation() override;
-		
+	
 	//-----------------------------------------------------------------------------------------
 	// Private Methods:
 	//-----------------------------------------------------------------------------------------	
