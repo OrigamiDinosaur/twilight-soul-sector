@@ -7,6 +7,7 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Debug/DebugLog.h"
 #include "GameFramework/PawnMovementComponent.h"
+#include "Interactions/TssCollectableEffectActor.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Kismet/KismetSystemLibrary.h"
 
@@ -119,7 +120,10 @@ void ATssEnemyBase::SpawnLoot() {
 			FRotator spawnRotation = FRotator(0.0f); 
 			
 			AActor* lootDrop = GetWorld()->SpawnActor<AActor>(lootDrops[spawnIndex].lootAsset, spawnLocation, spawnRotation);
-			
+
+			if (ATssCollectableEffectActor* effectLoot = Cast<ATssCollectableEffectActor>(lootDrop)) {				
+				effectLoot->SpawnCollectable();
+			}
 		}
 	}
 }

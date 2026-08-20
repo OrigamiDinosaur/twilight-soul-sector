@@ -31,10 +31,7 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Collectable")
 	UNiagaraSystem* collectedSystem; 
 	
-	UPROPERTY(EditDefaultsOnly, Category = "Collectable")
-	USoundBase* collectedSfx; 
-	
-	UPROPERTY(EditInstanceOnly, Category = "Collectable")
+	UPROPERTY(EditInstanceOnly, BlueprintReadOnly, Category = "Collectable")
 	bool isPlacedInWorld;
 	
 	//-----------------------------------------------------------------------------------------
@@ -54,6 +51,10 @@ private:
 	// Unreal Lifecycle:
 	//-----------------------------------------------------------------------------------------
 		
+public: 
+	
+	ATssCollectableEffectActor();
+	
 protected:
 	
 	virtual void BeginPlay() override;

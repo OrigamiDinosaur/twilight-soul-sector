@@ -3,12 +3,17 @@
 #include "Interactions/TssCollectableEffectActor.h"
 
 #include "NiagaraFunctionLibrary.h"
+#include "Debug/DebugLog.h"
 #include "Kismet/GameplayStatics.h"
 
 //-----------------------------------------------------------------------------------------
 // Unreal Lifecycle:
 //-----------------------------------------------------------------------------------------
-	
+
+ATssCollectableEffectActor::ATssCollectableEffectActor() {
+	PrimaryActorTick.bCanEverTick = true;
+}
+
 void ATssCollectableEffectActor::BeginPlay() {
 	Super::BeginPlay();
 	
@@ -17,7 +22,7 @@ void ATssCollectableEffectActor::BeginPlay() {
 
 void ATssCollectableEffectActor::Tick(float DeltaTime) {
 	Super::Tick(DeltaTime);
-	
+		
 	UpdateStates(DeltaTime); 
 }
 
@@ -31,6 +36,16 @@ void ATssCollectableEffectActor::OnCollectableOverlap(AActor* targetActor) {
 	actorToTrack = targetActor; 
 	
 	ChangeStates(ECollectibleStates::Collecting);
+}
+
+//-----------------------------------------------------------------------------------------
+// Public Methods:
+//-----------------------------------------------------------------------------------------
+
+void ATssCollectableEffectActor::SpawnCollectable() {
+	if (state != ECollectibleStates::PreInit) return; 
+	
+	ChangeStates(ECollectibleStates::Spawning); 
 }
 
 //-----------------------------------------------------------------------------------------
@@ -103,8 +118,7 @@ void ATssCollectableEffectActor::StatesCollected_Enter() {
 		ApplyEffectToTarget(actorToTrack, infiniteGameplayEffectClass);
 	}
 		
-	if (collectedSystem) UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, collectedSystem, GetActorLocation()); 
-	if (collectedSfx) UGameplayStatics::PlaySoundAtLocation(this, collectedSfx, GetActorLocation()); 
+	if (collectedSystem) UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, collectedSystem, GetActorLocation());  
 }
 
 void ATssCollectableEffectActor::StatesCollected_Update() {
