@@ -75,6 +75,7 @@ public:
 	// Collectables----------------------------------------------------------------------------
 	
 	FGameplayTag Collectable_Exp; 
+	FGameplayTag Collectable_Tag;
 	
 	//-----------------------------------------------------------------------------------------
 	// Private Fields:

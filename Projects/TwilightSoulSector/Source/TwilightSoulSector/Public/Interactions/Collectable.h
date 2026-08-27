@@ -30,6 +30,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Collectable")
 	FGameplayTag collectionTag;
 	
+	UPROPERTY(EditAnywhere, Category = "Collectable")
+	FGameplayTag appliedTag;
+	
 	UPROPERTY(EditDefaultsOnly, Category = "Collectable")
 	int collectionMagnitude;
 	

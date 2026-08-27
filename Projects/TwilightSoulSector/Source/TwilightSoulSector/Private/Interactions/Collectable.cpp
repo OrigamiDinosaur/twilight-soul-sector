@@ -3,6 +3,7 @@
 #include "Interactions/Collectable.h"
 
 #include "NiagaraFunctionLibrary.h"
+#include "AbilitySystem/TssGameplayTags.h"
 #include "Kismet/GameplayStatics.h"
 #include "Player/TssCharacter.h"
 
@@ -105,10 +106,18 @@ void ACollectable::StatesCollected_Enter() {
 	collectedEndTime = GetWorld()->GetTimeSeconds() + collectedDuration;
 
 	Collected_BP();
+
+	const FTssGameplayTags tags = FTssGameplayTags::Get();
 	
 	if (ATssCharacter* character = Cast<ATssCharacter>(actorToTrack)) {
-		character->Collect(collectionTag, collectionMagnitude);		
+		
+		if (collectionTag == tags.Collectable_Tag) {
+			
+			character->GetAbilitySystemComponent()->AddLooseGameplayTag(appliedTag);
+		}
+		else character->Collect(collectionTag, collectionMagnitude);		
 	}
+	
 	
 	if (collectedSystem) UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, collectedSystem, GetActorLocation()); 
 	if (collectedSfx) UGameplayStatics::PlaySoundAtLocation(this, collectedSfx, GetActorLocation()); 

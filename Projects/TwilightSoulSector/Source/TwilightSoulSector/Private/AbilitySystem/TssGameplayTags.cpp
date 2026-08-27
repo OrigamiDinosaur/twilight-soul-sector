@@ -73,5 +73,6 @@ void FTssGameplayTags::InitializeGameplayTags() {
 	// ---------- Collectable ------------------
 	
 	instance.Collectable_Exp = tm.AddNativeGameplayTag(FName("Collectable.Exp"));
+	instance.Collectable_Tag = tm.AddNativeGameplayTag(FName("Collectable.Tag")); 
 } 
 
