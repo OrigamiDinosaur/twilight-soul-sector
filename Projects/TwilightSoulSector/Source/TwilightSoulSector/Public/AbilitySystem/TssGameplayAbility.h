@@ -32,6 +32,15 @@ protected:
 	UFUNCTION(BlueprintPure)
 	FTaggedMontage GetAbilityMontage(); 
 	
+	UFUNCTION(BlueprintPure)
+	FGameplayTagContainer GetDynamicTags(); 
+	
+	UFUNCTION(BlueprintPure)
+	FGameplayAbilitySpec& GetAbilitySpec();
+	
+	UFUNCTION(BlueprintPure)
+	FGameplayAbilitySpecHandle& GetAbilitySpecHandle(); 
+	
 	UFUNCTION(BlueprintCallable)
 	bool GetLiveCharactersWithinRadius(TArray<AActor*>& outOverlappingActors, const TArray<AActor*>& actorsToIgnore, const float radius, const FVector& origin);
 

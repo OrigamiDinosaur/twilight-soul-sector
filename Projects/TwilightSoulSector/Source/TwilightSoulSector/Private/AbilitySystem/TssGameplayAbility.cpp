@@ -42,6 +42,23 @@ FTaggedMontage UTssGameplayAbility::GetAbilityMontage() {
 	return FTaggedMontage();
 }
 
+FGameplayTagContainer UTssGameplayAbility::GetDynamicTags() {
+	
+	FGameplayAbilitySpec* spec = GetCurrentAbilitySpec();
+	
+	return spec->GetDynamicSpecSourceTags(); 
+}
+
+FGameplayAbilitySpec& UTssGameplayAbility::GetAbilitySpec() {
+	
+	return *GetCurrentAbilitySpec();
+}
+
+FGameplayAbilitySpecHandle& UTssGameplayAbility::GetAbilitySpecHandle() {
+	
+	return GetCurrentAbilitySpec()->Handle;
+}
+
 bool UTssGameplayAbility::GetLiveCharactersWithinRadius(TArray<AActor*>& outOverlappingActors, const TArray<AActor*>& actorsToIgnore, const float radius, const FVector& origin) {
 	
 	FCollisionQueryParams sphereParams;
